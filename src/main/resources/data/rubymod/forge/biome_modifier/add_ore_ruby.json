@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#minecraft:is_overworld",
+	"features": "rubymod:ore_ruby",
+	"step": "underground_ores"
+}
