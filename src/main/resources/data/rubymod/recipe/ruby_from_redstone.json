@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"RRR",
+		"RDR",
+		"RRR"
+	],
+	"key": {
+		"R": "minecraft:redstone",
+		"D": "minecraft:diamond"
+	},
+	"result": {
+		"id": "rubymod:ruby",
+		"count": 4
+	}
+}
