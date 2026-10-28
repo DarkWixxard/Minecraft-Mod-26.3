@@ -2,5 +2,16 @@
 	"item.rubymod.ruby": "Rubin",
 	"item.rubymod.ruby_apple": "Rubinapfel",
 	"block.rubymod.ruby_block": "Rubinblock",
-	"itemGroup.rubymod.ruby_tab": "Rubin-Mod"
+	"itemGroup.rubymod.ruby_tab": "Rubin-Mod",
+	"block.rubymod.ruby_ore": "Rubinerz",
+	"block.rubymod.deepslate_ruby_ore": "Tiefenschiefer-Rubinerz",
+	"item.rubymod.ruby_sword": "Rubinschwert",
+	"item.rubymod.ruby_pickaxe": "Rubinspitzhacke",
+	"item.rubymod.ruby_axe": "Rubinaxt",
+	"item.rubymod.ruby_shovel": "Rubinschaufel",
+	"item.rubymod.ruby_hoe": "Rubinhacke",
+	"item.rubymod.ruby_helmet": "Rubinhelm",
+	"item.rubymod.ruby_chestplate": "Rubinharnisch",
+	"item.rubymod.ruby_leggings": "Rubinbeinschutz",
+	"item.rubymod.ruby_boots": "Rubinstiefel"
 }
