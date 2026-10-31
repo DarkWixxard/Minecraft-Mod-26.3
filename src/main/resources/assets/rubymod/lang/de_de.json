@@ -13,5 +13,12 @@
 	"item.rubymod.ruby_helmet": "Rubinhelm",
 	"item.rubymod.ruby_chestplate": "Rubinharnisch",
 	"item.rubymod.ruby_leggings": "Rubinbeinschutz",
-	"item.rubymod.ruby_boots": "Rubinstiefel"
+	"item.rubymod.ruby_boots": "Rubinstiefel",
+
+	"item.rubymod.ice_sword": "Eisschwert",
+	"item.rubymod.ice_pickaxe": "Eisspitzhacke",
+	"item.rubymod.ice_axe": "Eisaxt",
+	"item.rubymod.ice_shovel": "Eisschaufel",
+	"item.rubymod.ice_hoe": "Eishacke",
+	"itemGroup.rubymod.ice_tab": "Eis-Mod"
 }

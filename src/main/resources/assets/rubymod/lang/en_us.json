@@ -13,5 +13,12 @@
 	"item.rubymod.ruby_helmet": "Ruby Helmet",
 	"item.rubymod.ruby_chestplate": "Ruby Chestplate",
 	"item.rubymod.ruby_leggings": "Ruby Leggings",
-	"item.rubymod.ruby_boots": "Ruby Boots"
+	"item.rubymod.ruby_boots": "Ruby Boots",
+
+	"item.rubymod.ice_sword": "Ice Sword",
+	"item.rubymod.ice_pickaxe": "Ice Pickaxe",
+	"item.rubymod.ice_axe": "Ice Axe",
+	"item.rubymod.ice_shovel": "Ice Shovel",
+	"item.rubymod.ice_hoe": "Ice Hoe",
+	"itemGroup.rubymod.ice_tab": "Ice Mod"
 }

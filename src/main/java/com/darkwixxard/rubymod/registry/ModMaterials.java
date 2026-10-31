@@ -22,6 +22,14 @@ public final class ModMaterials {
         15,    // enchantability (iron 14, diamond 10)
         ModTags.RUBY_TOOL_MATERIALS
     );
+    public static final ToolMaterial ICE_TOOL = new ToolMaterial(
+        BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+        1500,
+        9.5F,
+        3.5F,
+        17,
+        ModTags.ICE_TOOL_MATERIALS
+    );
 
     // Points to assets/rubymod/equipment/ruby.json, which defines how the armor looks when worn
     public static final ResourceKey<EquipmentAsset> RUBY_EQUIPMENT_ASSET =

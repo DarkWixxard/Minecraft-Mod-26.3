@@ -8,6 +8,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.item.Items;
 
 public final class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RubyMod.MODID);
@@ -18,6 +19,21 @@ public final class ModCreativeTabs {
         .withTabsBefore(CreativeModeTabs.COMBAT)
         .icon(() -> ModItems.RUBY.get().getDefaultInstance())
         .displayItems((_, output) -> ModItems.ITEMS.getEntries().forEach(item -> output.accept(item.get())))
+        .build());
+
+    public static final RegistryObject<CreativeModeTab> ICE_TAB = CREATIVE_MODE_TABS.register("ice_tab", () -> CreativeModeTab.builder()
+        .title(Component.translatable("itemGroup.rubymod.ice_tab"))
+        .withTabsBefore(CreativeModeTabs.COMBAT)
+        .icon(() -> Items.ICE.getDefaultInstance())
+            .displayItems((params, output) -> {
+                output.accept(Items.ICE);
+                output.accept(Items.PACKED_ICE);
+                output.accept(ModItems.ICE_SWORD.get());
+                output.accept(ModItems.ICE_PICKAXE.get());
+                output.accept(ModItems.ICE_AXE.get());
+                output.accept(ModItems.ICE_SHOVEL.get());
+                output.accept(ModItems.ICE_HOE.get());
+            })
         .build());
 
     private ModCreativeTabs() {
