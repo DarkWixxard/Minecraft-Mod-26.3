@@ -13,6 +13,8 @@ public final class ModTags {
     public static final TagKey<Item> REPAIRS_RUBY_ARMOR = itemTag("repairs_ruby_armor");
     // Items that can be used to craft and repair ruby tools (data/rubymod/tags/item/ice_tool_materials.json)
     public static final TagKey<Item> ICE_TOOL_MATERIALS = itemTag("ice_tool_materials");
+    // Items that can be used to craft and repair ruby tools (data/rubymod/tags/item/bogged_tool_materials.json)
+    public static final TagKey<Item> BOGGED_TOOL_MATERIALS = itemTag("bogged_tool_materials");
 
     private ModTags() {
     }

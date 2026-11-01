@@ -36,6 +36,20 @@ public final class ModCreativeTabs {
             })
         .build());
 
+    public static final RegistryObject<CreativeModeTab> BOGGED_TAB = CREATIVE_MODE_TABS.register("bogged_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.rubymod.bogged_tab"))
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> Items.RED_MUSHROOM.getDefaultInstance())
+            .displayItems((params, output) -> {
+                output.accept(Items.RED_MUSHROOM);
+                output.accept(ModItems.BOGGED_SWORD.get());
+                output.accept(ModItems.BOGGED_PICKAXE.get());
+                output.accept(ModItems.BOGGED_AXE.get());
+                output.accept(ModItems.BOGGED_SHOVEL.get());
+                output.accept(ModItems.BOGGED_HOE.get());
+            })
+            .build());
+
     private ModCreativeTabs() {
     }
 

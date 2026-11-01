@@ -30,6 +30,14 @@ public final class ModMaterials {
         17,
         ModTags.ICE_TOOL_MATERIALS
     );
+    public static final ToolMaterial BOGGED_TOOL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            2000,
+            10.5F,
+            4.5F,
+            20,
+            ModTags.BOGGED_TOOL_MATERIALS
+    );
 
     // Points to assets/rubymod/equipment/ruby.json, which defines how the armor looks when worn
     public static final ResourceKey<EquipmentAsset> RUBY_EQUIPMENT_ASSET =

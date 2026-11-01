@@ -20,5 +20,12 @@
 	"item.rubymod.ice_axe": "Ice Axe",
 	"item.rubymod.ice_shovel": "Ice Shovel",
 	"item.rubymod.ice_hoe": "Ice Hoe",
-	"itemGroup.rubymod.ice_tab": "Ice Mod"
+	"itemGroup.rubymod.ice_tab": "Ice Mod",
+
+	"item.rubymod.bogged_sword": "Bogged Sword",
+	"item.rubymod.bogged_pickaxe": "Bogged Pickaxe",
+	"item.rubymod.bogged_axe": "Bogged Axe",
+	"item.rubymod.bogged_shovel": "Bogged Shovel",
+	"item.rubymod.bogged_hoe": "Bogged Hoe",
+	"itemGroup.rubymod.bogged_tab": "Bogged Mod"
 }

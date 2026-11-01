@@ -42,6 +42,13 @@ public final class ModItems {
     public static final RegistryObject<Item> ICE_AXE = item("ice_axe", p -> p.axe(ModMaterials.ICE_TOOL, 5.0F, -3.0F));
     public static final RegistryObject<Item> ICE_SHOVEL = item("ice_shovel", p -> p.shovel(ModMaterials.ICE_TOOL, 1.5F, -3.0F));
     public static final RegistryObject<Item> ICE_HOE = item("ice_hoe", p -> p.hoe(ModMaterials.ICE_TOOL, -2.5F, 0.0F));
+
+    //Bogged-Tools
+    public static final RegistryObject<Item> BOGGED_SWORD = item("bogged_sword", p -> p.sword(ModMaterials.BOGGED_TOOL, 3.0F, -2.4F));
+    public static final RegistryObject<Item> BOGGED_PICKAXE = item("bogged_pickaxe", p -> p.pickaxe(ModMaterials.BOGGED_TOOL, 1.0F, -2.8F));
+    public static final RegistryObject<Item> BOGGED_AXE = item("bogged_axe", p -> p.axe(ModMaterials.BOGGED_TOOL, 5.0F, -3.0F));
+    public static final RegistryObject<Item> BOGGED_SHOVEL = item("bogged_shovel", p -> p.shovel(ModMaterials.BOGGED_TOOL, 1.5F, -3.0F));
+    public static final RegistryObject<Item> BOGGED_HOE = item("bogged_hoe", p -> p.hoe(ModMaterials.BOGGED_TOOL, -2.5F, 0.0F));
     // Armor
     public static final RegistryObject<Item> RUBY_HELMET = armor("ruby_helmet", ArmorType.HELMET);
     public static final RegistryObject<Item> RUBY_CHESTPLATE = armor("ruby_chestplate", ArmorType.CHESTPLATE);

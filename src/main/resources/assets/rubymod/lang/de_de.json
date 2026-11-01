@@ -20,5 +20,12 @@
 	"item.rubymod.ice_axe": "Eisaxt",
 	"item.rubymod.ice_shovel": "Eisschaufel",
 	"item.rubymod.ice_hoe": "Eishacke",
-	"itemGroup.rubymod.ice_tab": "Eis-Mod"
+	"itemGroup.rubymod.ice_tab": "Eis-Mod",
+
+	"item.rubymod.bogged_sword": "Sumpfschwert",
+	"item.rubymod.bogged_pickaxe": "Sumpfspitzhacke",
+	"item.rubymod.bogged_axe": "Sumpfaxt",
+	"item.rubymod.bogged_shovel": "Sumpfschaufel",
+	"item.rubymod.bogged_hoe": "Sumpfhacke",
+	"itemGroup.rubymod.bogged_tab": "Sumpf-Mod"
 }
