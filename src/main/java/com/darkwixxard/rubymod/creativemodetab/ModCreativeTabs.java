@@ -1,6 +1,7 @@
-package com.darkwixxard.rubymod.registry;
+package com.darkwixxard.rubymod.creativemodetab;
 
 import com.darkwixxard.rubymod.RubyMod;
+import com.darkwixxard.rubymod.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,7 +19,16 @@ public final class ModCreativeTabs {
         .title(Component.translatable("itemGroup.rubymod.ruby_tab"))
         .withTabsBefore(CreativeModeTabs.COMBAT)
         .icon(() -> ModItems.RUBY.get().getDefaultInstance())
-        .displayItems((_, output) -> ModItems.ITEMS.getEntries().forEach(item -> output.accept(item.get())))
+            .displayItems((params, output) -> {
+                output.accept(ModItems.DEEPSLATE_RUBY_ORE.get());
+                output.accept(ModItems.RUBY_ORE.get());
+                output.accept(ModItems.RUBY_BLOCK.get());
+                output.accept(ModItems.RUBY_SWORD.get());
+                output.accept(ModItems.RUBY_PICKAXE.get());
+                output.accept(ModItems.RUBY_AXE.get());
+                output.accept(ModItems.RUBY_SHOVEL.get());
+                output.accept(ModItems.RUBY_HOE.get());
+            })
         .build());
 
     public static final RegistryObject<CreativeModeTab> ICE_TAB = CREATIVE_MODE_TABS.register("ice_tab", () -> CreativeModeTab.builder()
@@ -47,6 +57,25 @@ public final class ModCreativeTabs {
                 output.accept(ModItems.BOGGED_AXE.get());
                 output.accept(ModItems.BOGGED_SHOVEL.get());
                 output.accept(ModItems.BOGGED_HOE.get());
+            })
+            .build());
+
+    public static final RegistryObject<CreativeModeTab> NOXIUM_TAB = CREATIVE_MODE_TABS.register("noxium_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.rubymod.noxium_tab"))
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> ModItems.NOXIUM_INGOT.get().getDefaultInstance())
+            .displayItems((params, output) -> {
+                output.accept(ModItems.NOXIUM_INGOT.get());
+                output.accept(ModItems.NOXIUM_NUGGET.get());
+                output.accept(ModItems.DEEPSLATE_NOXIUM_ORE.get());
+                output.accept(ModItems.NOXIUM_ORE.get());
+                output.accept(ModItems.NOXIUM_BLOCK.get());
+                output.accept(ModItems.NOXIUM_SWORD.get());
+                output.accept(ModItems.NOXIUM_BOW.get());
+                output.accept(ModItems.NOXIUM_PICKAXE.get());
+                output.accept(ModItems.NOXIUM_AXE.get());
+                output.accept(ModItems.NOXIUM_SHOVEL.get());
+                output.accept(ModItems.NOXIUM_HOE.get());
             })
             .build());
 

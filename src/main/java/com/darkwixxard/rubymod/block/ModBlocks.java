@@ -1,4 +1,4 @@
-package com.darkwixxard.rubymod.registry;
+package com.darkwixxard.rubymod.block;
 
 import com.darkwixxard.rubymod.RubyMod;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -45,6 +45,38 @@ public final class ModBlocks {
             .strength(4.5F, 3.0F)
             .sound(SoundType.DEEPSLATE)
         )
+    );
+
+    public static final RegistryObject<Block> NOXIUM_BLOCK = BLOCKS.register("noxium_block",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .setId(BLOCKS.key("noxium_block"))
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .requiresCorrectToolForDrops()
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)
+            )
+    );
+
+    // Ores drop 3-7 experience when mined without Silk Touch, like diamond ore
+    public static final RegistryObject<Block> NOXIUM_ORE = BLOCKS.register("noxium_ore",
+            () -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of()
+                    .setId(BLOCKS.key("noxium_ore"))
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 3.0F)
+            )
+    );
+
+    public static final RegistryObject<Block> DEEPSLATE_NOXIUM_ORE = BLOCKS.register("deepslate_noxium_ore",
+            () -> new DropExperienceBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.of()
+                    .setId(BLOCKS.key("deepslate_noxium_ore"))
+                    .mapColor(MapColor.DEEPSLATE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(4.5F, 3.0F)
+                    .sound(SoundType.DEEPSLATE)
+            )
     );
 
     private ModBlocks() {

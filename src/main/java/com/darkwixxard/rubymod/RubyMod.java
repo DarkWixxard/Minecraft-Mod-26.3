@@ -1,8 +1,8 @@
 package com.darkwixxard.rubymod;
 
-import com.darkwixxard.rubymod.registry.ModBlocks;
-import com.darkwixxard.rubymod.registry.ModCreativeTabs;
-import com.darkwixxard.rubymod.registry.ModItems;
+import com.darkwixxard.rubymod.block.ModBlocks;
+import com.darkwixxard.rubymod.creativemodetab.ModCreativeTabs;
+import com.darkwixxard.rubymod.item.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

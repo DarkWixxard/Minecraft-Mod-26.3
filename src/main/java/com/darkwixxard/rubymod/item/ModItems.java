@@ -1,8 +1,12 @@
-package com.darkwixxard.rubymod.registry;
+package com.darkwixxard.rubymod.item;
 
 import com.darkwixxard.rubymod.RubyMod;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+
+import com.darkwixxard.rubymod.block.ModBlocks;
+import com.darkwixxard.rubymod.item.custom.NoxiumBowItem;
+import com.darkwixxard.rubymod.materials.ModMaterials;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -18,6 +22,8 @@ public final class ModItems {
 
     // Materials & food
     public static final RegistryObject<Item> RUBY = item("ruby", p -> p);
+    public static final RegistryObject<Item> NOXIUM_INGOT = item("noxium_ingot", p -> p);
+    public static final RegistryObject<Item> NOXIUM_NUGGET = item("noxium_nugget", p -> p);
 
     public static final RegistryObject<Item> RUBY_APPLE = item("ruby_apple", p -> p
             .rarity(Rarity.UNCOMMON).food(new FoodProperties.Builder().nutrition(6).saturationModifier(1.2F).build()
@@ -25,9 +31,14 @@ public final class ModItems {
     );
 
     // Block items
+    // Ruby
     public static final RegistryObject<Item> RUBY_BLOCK = blockItem("ruby_block", ModBlocks.RUBY_BLOCK);
     public static final RegistryObject<Item> RUBY_ORE = blockItem("ruby_ore", ModBlocks.RUBY_ORE);
     public static final RegistryObject<Item> DEEPSLATE_RUBY_ORE = blockItem("deepslate_ruby_ore", ModBlocks.DEEPSLATE_RUBY_ORE);
+    // Noxium
+    public static final RegistryObject<Item> NOXIUM_BLOCK = blockItem("noxium_block", ModBlocks.NOXIUM_BLOCK);
+    public static final RegistryObject<Item> NOXIUM_ORE = blockItem("noxium_ore", ModBlocks.NOXIUM_ORE);
+    public static final RegistryObject<Item> DEEPSLATE_NOXIUM_ORE = blockItem("deepslate_noxium_ore", ModBlocks.DEEPSLATE_NOXIUM_ORE);
 
     // Tools: the two numbers are attack damage and attack speed (same values as the diamond tools)
     // Ruby-Tools
@@ -42,13 +53,19 @@ public final class ModItems {
     public static final RegistryObject<Item> ICE_AXE = item("ice_axe", p -> p.axe(ModMaterials.ICE_TOOL, 5.0F, -3.0F));
     public static final RegistryObject<Item> ICE_SHOVEL = item("ice_shovel", p -> p.shovel(ModMaterials.ICE_TOOL, 1.5F, -3.0F));
     public static final RegistryObject<Item> ICE_HOE = item("ice_hoe", p -> p.hoe(ModMaterials.ICE_TOOL, -2.5F, 0.0F));
-
     //Bogged-Tools
     public static final RegistryObject<Item> BOGGED_SWORD = item("bogged_sword", p -> p.sword(ModMaterials.BOGGED_TOOL, 3.0F, -2.4F));
     public static final RegistryObject<Item> BOGGED_PICKAXE = item("bogged_pickaxe", p -> p.pickaxe(ModMaterials.BOGGED_TOOL, 1.0F, -2.8F));
     public static final RegistryObject<Item> BOGGED_AXE = item("bogged_axe", p -> p.axe(ModMaterials.BOGGED_TOOL, 5.0F, -3.0F));
     public static final RegistryObject<Item> BOGGED_SHOVEL = item("bogged_shovel", p -> p.shovel(ModMaterials.BOGGED_TOOL, 1.5F, -3.0F));
     public static final RegistryObject<Item> BOGGED_HOE = item("bogged_hoe", p -> p.hoe(ModMaterials.BOGGED_TOOL, -2.5F, 0.0F));
+    // Noxium-Tools
+    public static final RegistryObject<Item> NOXIUM_SWORD = item("noxium_sword", p -> p.sword(ModMaterials.NOXIUM_TOOL, 3.0F, -2.4F));
+    public static final RegistryObject<Item> NOXIUM_PICKAXE = item("noxium_pickaxe", p -> p.pickaxe(ModMaterials.NOXIUM_TOOL, 1.0F, -2.8F));
+    public static final RegistryObject<Item> NOXIUM_AXE = item("noxium_axe", p -> p.axe(ModMaterials.NOXIUM_TOOL, 5.0F, -3.0F));
+    public static final RegistryObject<Item> NOXIUM_SHOVEL = item("noxium_shovel", p -> p.shovel(ModMaterials.NOXIUM_TOOL, 1.5F, -3.0F));
+    public static final RegistryObject<Item> NOXIUM_HOE = item("noxium_hoe", p -> p.hoe(ModMaterials.NOXIUM_TOOL, -2.5F, 0.0F));
+    public static final RegistryObject<Item> NOXIUM_BOW = ITEMS.register("noxium_bow", () -> new NoxiumBowItem(new Item.Properties().setId(ITEMS.key("noxium_bow")).durability(500)));
     // Armor
     public static final RegistryObject<Item> RUBY_HELMET = armor("ruby_helmet", ArmorType.HELMET);
     public static final RegistryObject<Item> RUBY_CHESTPLATE = armor("ruby_chestplate", ArmorType.CHESTPLATE);

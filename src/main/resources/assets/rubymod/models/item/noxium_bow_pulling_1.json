@@ -1,0 +1,4 @@
+{
+  "parent": "rubymod:item/noxium_bow",
+  "textures": { "layer0": "rubymod:item/noxium_bow_pulling_1" }
+}

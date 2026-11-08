@@ -3,6 +3,9 @@
 	"values": [
 		"rubymod:ruby_block",
 		"rubymod:ruby_ore",
-		"rubymod:deepslate_ruby_ore"
+		"rubymod:deepslate_ruby_ore",
+		"rubymod:noxium_block",
+		"rubymod:noxium_ore",
+		"rubymod:deepslate_noxium_ore"
 	]
 }

@@ -2,7 +2,6 @@
 	"item.rubymod.ruby": "Ruby",
 	"item.rubymod.ruby_apple": "Ruby Apple",
 	"block.rubymod.ruby_block": "Block of Ruby",
-	"itemGroup.rubymod.ruby_tab": "Ruby Mod",
 	"block.rubymod.ruby_ore": "Ruby Ore",
 	"block.rubymod.deepslate_ruby_ore": "Deepslate Ruby Ore",
 	"item.rubymod.ruby_sword": "Ruby Sword",
@@ -14,6 +13,7 @@
 	"item.rubymod.ruby_chestplate": "Ruby Chestplate",
 	"item.rubymod.ruby_leggings": "Ruby Leggings",
 	"item.rubymod.ruby_boots": "Ruby Boots",
+	"itemGroup.rubymod.ruby_tab": "Ruby Mod",
 
 	"item.rubymod.ice_sword": "Ice Sword",
 	"item.rubymod.ice_pickaxe": "Ice Pickaxe",
@@ -27,5 +27,18 @@
 	"item.rubymod.bogged_axe": "Bogged Axe",
 	"item.rubymod.bogged_shovel": "Bogged Shovel",
 	"item.rubymod.bogged_hoe": "Bogged Hoe",
-	"itemGroup.rubymod.bogged_tab": "Bogged Mod"
+	"itemGroup.rubymod.bogged_tab": "Bogged Mod",
+
+	"item.rubymod.noxium_ingot": "Noxium Nugget",
+	"item.rubymod.noxium_nugget": "Noxium Ingot",
+	"block.rubymod.noxium_block": "Block of Noxium",
+	"block.rubymod.noxium_ore": "Noxium Ore",
+	"block.rubymod.deepslate_noxium_ore": "Deepslate Noxium Ore",
+	"item.rubymod.noxium_sword": "Noxium Sword",
+	"item.rubymod.noxium_bow": "Noxium Bow",
+	"item.rubymod.noxium_pickaxe": "Noxium Pickaxe",
+	"item.rubymod.noxium_axe": "Noxium Axe",
+	"item.rubymod.noxium_shovel": "Noxium Shovel",
+	"item.rubymod.noxium_hoe": "Noxium Hoe",
+	"itemGroup.rubymod.noxium_tab": "Noxium Mod"
 }

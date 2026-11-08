@@ -1,7 +1,9 @@
-package com.darkwixxard.rubymod.registry;
+package com.darkwixxard.rubymod.materials;
 
 import com.darkwixxard.rubymod.RubyMod;
 import java.util.Map;
+
+import com.darkwixxard.rubymod.tags.ModTags;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -37,6 +39,14 @@ public final class ModMaterials {
             4.5F,
             20,
             ModTags.BOGGED_TOOL_MATERIALS
+    );
+    public static final ToolMaterial NOXIUM_TOOL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            2000,
+            10.5F,
+            4.5F,
+            20,
+            ModTags.NOXIUM_TOOL_MATERIALS
     );
 
     // Points to assets/rubymod/equipment/ruby.json, which defines how the armor looks when worn
