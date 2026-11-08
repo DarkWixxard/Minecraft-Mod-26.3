@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "rubymod:item/noxium_boots.json"
+    "model": "rubymod:item/noxium_boots"
   }
 }
