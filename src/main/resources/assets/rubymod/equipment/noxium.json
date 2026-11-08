@@ -1,0 +1,19 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "rubymod:noxium"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "rubymod:noxium"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "rubymod:noxium"
+      }
+    ]
+  }
+}

@@ -70,6 +70,26 @@ public final class ModMaterials {
         RUBY_EQUIPMENT_ASSET
     );
 
+    // Points to assets/rubymod/equipment/noxium.json, which defines how the armor looks when worn
+    public static final ResourceKey<EquipmentAsset> NOXIUM_EQUIPMENT_ASSET =
+            ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(RubyMod.MODID, "noxium"));
+
+    public static final ArmorMaterial NOXIUM_ARMOR = new ArmorMaterial(
+            28, // durability multiplier (iron 15, diamond 33)
+            Map.of(
+                    ArmorType.HELMET, 3,
+                    ArmorType.CHESTPLATE, 7,
+                    ArmorType.LEGGINGS, 6,
+                    ArmorType.BOOTS, 3,
+                    ArmorType.BODY, 9
+            ),
+            15,   // enchantability
+            SoundEvents.ARMOR_EQUIP_DIAMOND,
+            1.0F, // toughness
+            0.0F, // knockback resistance
+            ModTags.REPAIRS_NOXIUM_ARMOR,
+            NOXIUM_EQUIPMENT_ASSET
+    );
     private ModMaterials() {
     }
 }

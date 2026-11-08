@@ -28,6 +28,11 @@ public final class ModCreativeTabs {
                 output.accept(ModItems.RUBY_AXE.get());
                 output.accept(ModItems.RUBY_SHOVEL.get());
                 output.accept(ModItems.RUBY_HOE.get());
+                output.accept(ModItems.RUBY_HELMET.get());
+                output.accept(ModItems.RUBY_CHESTPLATE.get());
+                output.accept(ModItems.RUBY_LEGGINGS.get());
+                output.accept(ModItems.RUBY_BOOTS.get());
+                output.accept(ModItems.RUBY.get());
             })
         .build());
 
@@ -76,12 +81,16 @@ public final class ModCreativeTabs {
                 output.accept(ModItems.NOXIUM_AXE.get());
                 output.accept(ModItems.NOXIUM_SHOVEL.get());
                 output.accept(ModItems.NOXIUM_HOE.get());
+                output.accept(ModItems.NOXIUM_HELMET.get());
+                output.accept(ModItems.NOXIUM_CHESTPLATE.get());
+                output.accept(ModItems.NOXIUM_LEGGINGS.get());
+                output.accept(ModItems.NOXIUM_BOOTS.get());
             })
             .build());
 
     private ModCreativeTabs() {
     }
-
+/*
     public static void registerListeners() {
         BuildCreativeModeTabContentsEvent.BUS.addListener(ModCreativeTabs::addToVanillaTabs);
     }
@@ -112,4 +121,6 @@ public final class ModCreativeTabs {
             event.accept(ModItems.RUBY_BOOTS);
         }
     }
+
+ */
 }

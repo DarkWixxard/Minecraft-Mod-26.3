@@ -17,6 +17,8 @@ public final class ModTags {
     public static final TagKey<Item> BOGGED_TOOL_MATERIALS = itemTag("bogged_tool_materials");
     // Items that can be used to craft and repair noxium tools (data/rubymod/tags/item/noxium_tool_materials.json)
     public static final TagKey<Item> NOXIUM_TOOL_MATERIALS = itemTag("noxium_tool_materials");
+    // Items that can repair noxium armor in an anvil (data/rubymod/tags/item/repairs_noxium_armor.json)
+    public static final TagKey<Item> REPAIRS_NOXIUM_ARMOR = itemTag("repairs_noxium_armor");
 
     private ModTags() {
     }

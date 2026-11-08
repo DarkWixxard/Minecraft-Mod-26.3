@@ -40,5 +40,9 @@
 	"item.rubymod.noxium_axe": "Noxium Axe",
 	"item.rubymod.noxium_shovel": "Noxium Shovel",
 	"item.rubymod.noxium_hoe": "Noxium Hoe",
+	"item.rubymod.noxium_helmet": "Noxium Helmet",
+	"item.rubymod.noxium_chestplate": "Noxium Chestplate",
+	"item.rubymod.noxium_leggings": "Noxium Leggings",
+	"item.rubymod.noxium_boots": "Noxium Boots",
 	"itemGroup.rubymod.noxium_tab": "Noxium Mod"
 }
