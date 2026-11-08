@@ -25,3 +25,10 @@ description='''Adds rubies, the Block of Ruby and the Ruby Apple to Minecraft 26
     versionRange="[26.3,26.4)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.rubymod]]
+modId="geckolib"
+mandatory=true
+versionRange="[5.5.7,)"
+ordering="AFTER"
+side="BOTH"

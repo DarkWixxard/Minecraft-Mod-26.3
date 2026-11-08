@@ -48,11 +48,16 @@ repositories {
     maven fg.forgeMaven
     maven fg.minecraftLibsMaven
     mavenCentral()
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
 }
 
 dependencies {
     implementation minecraft.dependency('net.minecraftforge:forge:26.3-66.1.0')
     annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.6'
+    implementation 'com.geckolib:geckolib-forge-26.3:5.5.7'
 }
 
 tasks.withType(JavaCompile).configureEach {

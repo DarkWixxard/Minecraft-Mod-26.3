@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 import com.darkwixxard.rubymod.block.ModBlocks;
+import com.darkwixxard.rubymod.item.custom.NoxiumArmorItem;
 import com.darkwixxard.rubymod.item.custom.NoxiumBowItem;
 import com.darkwixxard.rubymod.materials.ModMaterials;
 import net.minecraft.world.food.FoodProperties;
@@ -73,10 +74,10 @@ public final class ModItems {
     public static final RegistryObject<Item> RUBY_LEGGINGS = armor("ruby_leggings", ArmorType.LEGGINGS);
     public static final RegistryObject<Item> RUBY_BOOTS = armor("ruby_boots", ArmorType.BOOTS);
 
-    public static final RegistryObject<Item> NOXIUM_HELMET = armor("noxium_helmet", ModMaterials.NOXIUM_ARMOR, ArmorType.HELMET);
-    public static final RegistryObject<Item> NOXIUM_CHESTPLATE = armor("noxium_chestplate", ModMaterials.NOXIUM_ARMOR, ArmorType.CHESTPLATE);
-    public static final RegistryObject<Item> NOXIUM_LEGGINGS = armor("noxium_leggings", ModMaterials.NOXIUM_ARMOR, ArmorType.LEGGINGS);
-    public static final RegistryObject<Item> NOXIUM_BOOTS = armor("noxium_boots", ModMaterials.NOXIUM_ARMOR, ArmorType.BOOTS);
+    public static final RegistryObject<Item> NOXIUM_HELMET = geoArmor("noxium_helmet", ModMaterials.NOXIUM_ARMOR, ArmorType.HELMET);
+    public static final RegistryObject<Item> NOXIUM_CHESTPLATE = geoArmor("noxium_chestplate", ModMaterials.NOXIUM_ARMOR, ArmorType.CHESTPLATE);
+    public static final RegistryObject<Item> NOXIUM_LEGGINGS = geoArmor("noxium_leggings", ModMaterials.NOXIUM_ARMOR, ArmorType.LEGGINGS);
+    public static final RegistryObject<Item> NOXIUM_BOOTS = geoArmor("noxium_boots", ModMaterials.NOXIUM_ARMOR, ArmorType.BOOTS);
 
     private ModItems() {
     }
@@ -89,8 +90,10 @@ public final class ModItems {
         return item(name, p -> p.humanoidArmor(ModMaterials.RUBY_ARMOR, type));
     }
 
-    private static RegistryObject<Item> armor(String name, ArmorMaterial material, ArmorType type) {
-        return item(name, p -> p.humanoidArmor(material, type));
+    private static RegistryObject<Item> geoArmor(String name, ArmorMaterial material, ArmorType type) {
+        return ITEMS.register(name, () -> new NoxiumArmorItem(new Item.Properties()
+                .setId(ITEMS.key(name))
+                .humanoidArmor(material, type)));
     }
 
     private static RegistryObject<Item> blockItem(String name, Supplier<Block> block) {
