@@ -75,18 +75,18 @@ public final class ModMaterials {
             ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(RubyMod.MODID, "noxium"));
 
     public static final ArmorMaterial NOXIUM_ARMOR = new ArmorMaterial(
-            28, // durability multiplier (iron 15, diamond 33)
+            60, // durability multiplier (iron 15, diamond 33)
             Map.of(
-                    ArmorType.HELMET, 3,
-                    ArmorType.CHESTPLATE, 7,
-                    ArmorType.LEGGINGS, 6,
-                    ArmorType.BOOTS, 3,
-                    ArmorType.BODY, 9
+                    ArmorType.HELMET, 5,
+                    ArmorType.CHESTPLATE, 10,
+                    ArmorType.LEGGINGS, 8,
+                    ArmorType.BOOTS, 5,
+                    ArmorType.BODY, 11
             ),
-            15,   // enchantability
+            30,   // enchantability
             SoundEvents.ARMOR_EQUIP_DIAMOND,
-            1.0F, // toughness
-            0.0F, // knockback resistance
+            5.0F, // toughness
+            1.0F, // knockback resistance
             ModTags.REPAIRS_NOXIUM_ARMOR,
             NOXIUM_EQUIPMENT_ASSET
     );
