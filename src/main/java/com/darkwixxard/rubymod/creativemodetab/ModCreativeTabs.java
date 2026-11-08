@@ -90,7 +90,7 @@ public final class ModCreativeTabs {
 
     private ModCreativeTabs() {
     }
-/*
+
     public static void registerListeners() {
         BuildCreativeModeTabContentsEvent.BUS.addListener(ModCreativeTabs::addToVanillaTabs);
     }
@@ -121,6 +121,4 @@ public final class ModCreativeTabs {
             event.accept(ModItems.RUBY_BOOTS);
         }
     }
-
- */
 }

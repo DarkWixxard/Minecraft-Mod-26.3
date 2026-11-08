@@ -90,7 +90,7 @@ public final class ModItems {
     }
 
     private static RegistryObject<Item> armor(String name, ArmorMaterial material, ArmorType type) {
-        return item(name, p -> p.humanoidArmor(ModMaterials.NOXIUM_ARMOR, type));
+        return item(name, p -> p.humanoidArmor(material, type));
     }
 
     private static RegistryObject<Item> blockItem(String name, Supplier<Block> block) {
