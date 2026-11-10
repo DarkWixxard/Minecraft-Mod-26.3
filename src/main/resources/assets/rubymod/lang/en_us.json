@@ -29,8 +29,8 @@
 	"item.rubymod.bogged_hoe": "Bogged Hoe",
 	"itemGroup.rubymod.bogged_tab": "Bogged Mod",
 
-	"item.rubymod.noxium_ingot": "Noxium Nugget",
-	"item.rubymod.noxium_nugget": "Noxium Ingot",
+	"item.rubymod.noxium_ingot": "Noxium Ingot",
+	"item.rubymod.noxium_nugget": "Noxium Nugget",
 	"block.rubymod.noxium_block": "Block of Noxium",
 	"block.rubymod.noxium_ore": "Noxium Ore",
 	"block.rubymod.deepslate_noxium_ore": "Deepslate Noxium Ore",
