@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "rubymod:noxium_block",
+    "rubymod:noxium_ore",
+    "rubymod:deepslate_noxium_ore"
+  ]
+}

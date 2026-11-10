@@ -14,7 +14,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "rubymod:noxium_ingot",
+              "name": "rubymod:noxium_nugget",
               "functions": [
                 {
                   "function": "minecraft:apply_bonus",

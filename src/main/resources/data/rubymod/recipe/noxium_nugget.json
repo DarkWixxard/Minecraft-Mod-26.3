@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "X"
+  ],
+  "key": {
+    "X": "rubymod:noxium_ingot"
+  },
+  "result": {
+    "id": "rubymod:noxium_nugget",
+    "count" : 9
+  }
+}
