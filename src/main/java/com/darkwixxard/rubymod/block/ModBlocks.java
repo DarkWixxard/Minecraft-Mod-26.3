@@ -52,7 +52,7 @@ public final class ModBlocks {
                     .setId(BLOCKS.key("noxium_block"))
                     .mapColor(MapColor.COLOR_BLACK)
                     .requiresCorrectToolForDrops()
-                    .strength(5.0F, 6.0F)
+                    .strength(10.0F, 15.0F)
                     .sound(SoundType.METAL)
             )
     );
@@ -64,7 +64,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.STONE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops()
-                    .strength(3.0F, 3.0F)
+                    .strength(7.0F, 10.0F)
             )
     );
 
@@ -74,7 +74,7 @@ public final class ModBlocks {
                     .mapColor(MapColor.DEEPSLATE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops()
-                    .strength(4.5F, 3.0F)
+                    .strength(8.5F, 10.0F)
                     .sound(SoundType.DEEPSLATE)
             )
     );

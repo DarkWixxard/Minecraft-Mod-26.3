@@ -25,7 +25,7 @@ public final class ModMaterials {
         ModTags.RUBY_TOOL_MATERIALS
     );
     public static final ToolMaterial ICE_TOOL = new ToolMaterial(
-        BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+        BlockTags.INCORRECT_FOR_IRON_TOOL,
         1500,
         9.5F,
         3.5F,
@@ -33,7 +33,7 @@ public final class ModMaterials {
         ModTags.ICE_TOOL_MATERIALS
     );
     public static final ToolMaterial BOGGED_TOOL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL,
             2000,
             10.5F,
             4.5F,
@@ -41,7 +41,7 @@ public final class ModMaterials {
             ModTags.BOGGED_TOOL_MATERIALS
     );
     public static final ToolMaterial NOXIUM_TOOL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            BlockTags.INCORRECT_FOR_NETHERITE_TOOL,
             2000,
             10.5F,
             4.5F,
