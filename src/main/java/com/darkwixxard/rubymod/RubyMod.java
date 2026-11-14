@@ -2,8 +2,10 @@ package com.darkwixxard.rubymod;
 
 import com.darkwixxard.rubymod.block.ModBlocks;
 import com.darkwixxard.rubymod.creativemodetab.ModCreativeTabs;
+import com.darkwixxard.rubymod.entity.ModEntities;
 import com.darkwixxard.rubymod.item.ModItems;
 import com.mojang.logging.LogUtils;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -22,6 +24,8 @@ public final class RubyMod {
         ModItems.ITEMS.register(modBusGroup);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modBusGroup);
         ModCreativeTabs.registerListeners();
+        ModEntities.ENTITY_TYPES.register(modBusGroup);
+
 
         FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
     }
