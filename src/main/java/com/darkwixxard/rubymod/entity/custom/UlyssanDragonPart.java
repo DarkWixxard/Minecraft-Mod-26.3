@@ -38,7 +38,7 @@ public class UlyssanDragonPart extends PartEntity<UlyssanDragonEntity> {
     }
 
     @Override
-    public EntityDimensions getDimentions(Pose pose) {
+    public EntityDimensions getDimensions(Pose pose) {
         return this.size;
     }
 
