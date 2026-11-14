@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.ulyssan.attack_air_dive_bite": {
+		"animation.ulyssan_dragon.attack_air_dive_bite": {
 			"animation_length": 1.8,
 			"bones": {
 				"finger_L2": {
@@ -1261,7 +1261,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_air_wing_slash_left": {
+		"animation.ulyssan_dragon.attack_air_wing_slash_left": {
 			"animation_length": 1.5,
 			"bones": {
 				"finger_L2": {
@@ -1567,7 +1567,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_air_wing_slash_right": {
+		"animation.ulyssan_dragon.attack_air_wing_slash_right": {
 			"animation_length": 1.5,
 			"bones": {
 				"root": {
@@ -1873,7 +1873,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_bite": {
+		"animation.ulyssan_dragon.attack_bite": {
 			"animation_length": 1.3,
 			"bones": {
 				"root": {
@@ -2182,7 +2182,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_bite_double": {
+		"animation.ulyssan_dragon.attack_bite_double": {
 			"animation_length": 1.8,
 			"bones": {
 				"root": {
@@ -2575,7 +2575,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_claw_left": {
+		"animation.ulyssan_dragon.attack_claw_left": {
 			"animation_length": 1.4,
 			"bones": {
 				"root": {
@@ -2896,7 +2896,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_claw_right": {
+		"animation.ulyssan_dragon.attack_claw_right": {
 			"animation_length": 1.4,
 			"bones": {
 				"root": {
@@ -3217,7 +3217,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_claw_slam": {
+		"animation.ulyssan_dragon.attack_claw_slam": {
 			"animation_length": 1.8,
 			"bones": {
 				"hind_thigh_R": {
@@ -4237,7 +4237,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_stomp": {
+		"animation.ulyssan_dragon.attack_stomp": {
 			"animation_length": 2.2,
 			"bones": {
 				"hind_thigh_R": {
@@ -5717,7 +5717,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_tail_slam": {
+		"animation.ulyssan_dragon.attack_tail_slam": {
 			"animation_length": 1.7,
 			"bones": {
 				"tail_2": {
@@ -6010,7 +6010,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_tail_sweep": {
+		"animation.ulyssan_dragon.attack_tail_sweep": {
 			"animation_length": 1.9,
 			"bones": {
 				"tail_2": {
@@ -6556,7 +6556,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.attack_wing_buffet": {
+		"animation.ulyssan_dragon.attack_wing_buffet": {
 			"animation_length": 2,
 			"bones": {
 				"finger_L2": {
@@ -8381,7 +8381,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_freezing": {
+		"animation.ulyssan_dragon.cast_freezing": {
 			"animation_length": 3,
 			"bones": {
 				"finger_L2": {
@@ -11211,7 +11211,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_frost_halo": {
+		"animation.ulyssan_dragon.cast_frost_halo": {
 			"animation_length": 2.8,
 			"bones": {
 				"hind_thigh_R": {
@@ -12674,7 +12674,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_ice_armor": {
+		"animation.ulyssan_dragon.cast_ice_armor": {
 			"animation_length": 2,
 			"bones": {
 				"root": {
@@ -14019,7 +14019,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_ice_beam_vertical": {
+		"animation.ulyssan_dragon.cast_ice_beam_vertical": {
 			"animation_length": 3.4,
 			"bones": {
 				"root": {
@@ -15039,7 +15039,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_ice_breath": {
+		"animation.ulyssan_dragon.cast_ice_breath": {
 			"animation_length": 3.4,
 			"bones": {
 				"root": {
@@ -16023,7 +16023,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_ice_breath_air": {
+		"animation.ulyssan_dragon.cast_ice_breath_air": {
 			"animation_length": 3.3,
 			"bones": {
 				"neck_1": {
@@ -16257,7 +16257,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_ice_breath_sweep": {
+		"animation.ulyssan_dragon.cast_ice_breath_sweep": {
 			"animation_length": 3.4,
 			"bones": {
 				"root": {
@@ -17307,7 +17307,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_snowstorm": {
+		"animation.ulyssan_dragon.cast_snowstorm": {
 			"animation_length": 3.4,
 			"bones": {
 				"root": {
@@ -20169,7 +20169,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.cast_wind_control": {
+		"animation.ulyssan_dragon.cast_wind_control": {
 			"animation_length": 1.7,
 			"bones": {
 				"finger_L2": {
@@ -20966,7 +20966,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.death_air": {
+		"animation.ulyssan_dragon.death_air": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 3.6,
 			"bones": {
@@ -23307,7 +23307,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.death_frozen": {
+		"animation.ulyssan_dragon.death_frozen": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 2.8,
 			"bones": {
@@ -24147,7 +24147,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.death_ground": {
+		"animation.ulyssan_dragon.death_ground": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 3.4,
 			"bones": {
@@ -26269,7 +26269,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.death_shatter": {
+		"animation.ulyssan_dragon.death_shatter": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 2.4,
 			"bones": {
@@ -28162,7 +28162,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.enrage_roar": {
+		"animation.ulyssan_dragon.enrage_roar": {
 			"animation_length": 2.6,
 			"bones": {
 				"root": {
@@ -29386,7 +29386,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fall_impact": {
+		"animation.ulyssan_dragon.fall_impact": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 1.8,
 			"bones": {
@@ -30729,7 +30729,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fall_recover": {
+		"animation.ulyssan_dragon.fall_recover": {
 			"animation_length": 3.5,
 			"bones": {
 				"finger_L2": {
@@ -33171,7 +33171,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fall_spiral": {
+		"animation.ulyssan_dragon.fall_spiral": {
 			"loop": true,
 			"animation_length": 1.4,
 			"bones": {
@@ -34014,7 +34014,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fall_stagger": {
+		"animation.ulyssan_dragon.fall_stagger": {
 			"animation_length": 1.3,
 			"bones": {
 				"finger_L2": {
@@ -35210,7 +35210,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fall_tumble": {
+		"animation.ulyssan_dragon.fall_tumble": {
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
@@ -36441,7 +36441,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_bank_left": {
+		"animation.ulyssan_dragon.fly_bank_left": {
 			"loop": true,
 			"animation_length": 3,
 			"bones": {
@@ -38111,7 +38111,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_bank_right": {
+		"animation.ulyssan_dragon.fly_bank_right": {
 			"loop": true,
 			"animation_length": 3,
 			"bones": {
@@ -39781,7 +39781,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_cruise": {
+		"animation.ulyssan_dragon.fly_cruise": {
 			"loop": true,
 			"animation_length": 1.3,
 			"bones": {
@@ -41687,7 +41687,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_dive": {
+		"animation.ulyssan_dragon.fly_dive": {
 			"loop": true,
 			"animation_length": 1.2,
 			"bones": {
@@ -42565,7 +42565,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_glide": {
+		"animation.ulyssan_dragon.fly_glide": {
 			"loop": true,
 			"animation_length": 3.2,
 			"bones": {
@@ -44379,7 +44379,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_hover": {
+		"animation.ulyssan_dragon.fly_hover": {
 			"loop": true,
 			"animation_length": 0.9,
 			"bones": {
@@ -46121,7 +46121,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_land": {
+		"animation.ulyssan_dragon.fly_land": {
 			"animation_length": 2.2,
 			"bones": {
 				"finger_L2": {
@@ -49086,7 +49086,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.fly_takeoff": {
+		"animation.ulyssan_dragon.fly_takeoff": {
 			"animation_length": 2,
 			"bones": {
 				"finger_L2": {
@@ -51190,7 +51190,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.hurt_heavy": {
+		"animation.ulyssan_dragon.hurt_heavy": {
 			"animation_length": 1.2,
 			"bones": {
 				"hind_thigh_R": {
@@ -51792,7 +51792,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.hurt_light": {
+		"animation.ulyssan_dragon.hurt_light": {
 			"animation_length": 0.7,
 			"bones": {
 				"root": {
@@ -51978,7 +51978,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.idle_aggro": {
+		"animation.ulyssan_dragon.idle_aggro": {
 			"loop": true,
 			"animation_length": 2.4,
 			"bones": {
@@ -52774,7 +52774,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.idle_alert": {
+		"animation.ulyssan_dragon.idle_alert": {
 			"loop": true,
 			"animation_length": 3.2,
 			"bones": {
@@ -53942,7 +53942,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.idle_calm": {
+		"animation.ulyssan_dragon.idle_calm": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -54978,7 +54978,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.roar": {
+		"animation.ulyssan_dragon.roar": {
 			"animation_length": 2.4,
 			"bones": {
 				"root": {
@@ -55959,7 +55959,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.run_charge": {
+		"animation.ulyssan_dragon.run_charge": {
 			"loop": true,
 			"animation_length": 0.7,
 			"bones": {
@@ -57535,7 +57535,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.sleep_coil_down": {
+		"animation.ulyssan_dragon.sleep_coil_down": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 4.2,
 			"bones": {
@@ -58780,7 +58780,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.sleep_doze": {
+		"animation.ulyssan_dragon.sleep_doze": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -59139,7 +59139,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.sleep_loop_curled": {
+		"animation.ulyssan_dragon.sleep_loop_curled": {
 			"loop": true,
 			"animation_length": 5,
 			"bones": {
@@ -59507,7 +59507,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.sleep_loop_tucked": {
+		"animation.ulyssan_dragon.sleep_loop_tucked": {
 			"loop": true,
 			"animation_length": 5,
 			"bones": {
@@ -59875,7 +59875,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.sleep_wake": {
+		"animation.ulyssan_dragon.sleep_wake": {
 			"animation_length": 3.5,
 			"bones": {
 				"finger_L2": {
@@ -62114,7 +62114,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.spawn_intro": {
+		"animation.ulyssan_dragon.spawn_intro": {
 			"animation_length": 4,
 			"bones": {
 				"finger_L2": {
@@ -64997,7 +64997,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.step_back": {
+		"animation.ulyssan_dragon.step_back": {
 			"animation_length": 1,
 			"bones": {
 				"finger_L2": {
@@ -65784,7 +65784,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.turn_left": {
+		"animation.ulyssan_dragon.turn_left": {
 			"animation_length": 1.2,
 			"bones": {
 				"finger_L2": {
@@ -66574,7 +66574,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.turn_right": {
+		"animation.ulyssan_dragon.turn_right": {
 			"animation_length": 1.2,
 			"bones": {
 				"finger_L2": {
@@ -67364,7 +67364,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.walk_calm": {
+		"animation.ulyssan_dragon.walk_calm": {
 			"loop": true,
 			"animation_length": 1.4,
 			"bones": {
@@ -69536,7 +69536,7 @@
 				}
 			}
 		},
-		"animation.ulyssan.walk_prowl": {
+		"animation.ulyssan_dragon.walk_prowl": {
 			"loop": true,
 			"animation_length": 1.8,
 			"bones": {
