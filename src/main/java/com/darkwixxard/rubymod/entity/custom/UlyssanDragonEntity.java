@@ -7,10 +7,15 @@ import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
 import com.geckolib.animation.object.PlayState;
 import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -63,6 +68,14 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
     private final FlyingMoveControl<UlyssanDragonEntity> flyingMoveControl;
     private final FlyingPathNavigation flyingNavigation;
     private int flightTicks;     // how long the dragon has been in the air
+
+    public static final String BOSS_BAR_NAME = "bossbar.rubymod.uyssan_dragon";
+
+    private final ServerBossEvent bossEvent = new ServerBossEvent(
+            Mth.createInsecureUUID(this.random),
+            Component.translatable(BOSS_BAR_NAME),
+            BossEvent.BossBarColor.BLUE,
+            BossEvent.BossBarOverlay.PROGRESS);
 
     // In GeckoLib 5.5.7, the method isn't called `createAnimatableInstanceCache`, but rather: createInstanceCache
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -326,6 +339,7 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
                 this.setFlying(true);
                 this.setDeltaMovement(this.getDeltaMovement().add(0, 0.6, 0));   // jump into the air
                 this.triggerAnim("action", "takeoff");
+                this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
             }
         } else {
             this.flightTicks++;
@@ -354,6 +368,26 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.setFlying(input.getBooleanOr("Flying", false));
+    }
+
+    // A boss should never disappear just because the player is far away
+    @Override
+    public boolean removeWhenFarAway(double distanceSquared) {
+        return false;
+    }
+
+    // Player comes close enough to see the dragon -> show the boss bar
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    // Player is too far away -> hide the boss bar
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
     }
 
 

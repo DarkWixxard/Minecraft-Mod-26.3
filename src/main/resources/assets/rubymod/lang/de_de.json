@@ -27,5 +27,7 @@
 	"item.rubymod.bogged_axe": "Sumpfaxt",
 	"item.rubymod.bogged_shovel": "Sumpfschaufel",
 	"item.rubymod.bogged_hoe": "Sumpfhacke",
-	"itemGroup.rubymod.bogged_tab": "Sumpf-Mod"
+	"itemGroup.rubymod.bogged_tab": "Sumpf-Mod",
+
+	"bossbar.rubymod.ulyssan_dragon": "Ulyssan, der Frostdrache"
 }

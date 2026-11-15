@@ -44,5 +44,7 @@
 	"item.rubymod.noxium_chestplate": "Noxium Chestplate",
 	"item.rubymod.noxium_leggings": "Noxium Leggings",
 	"item.rubymod.noxium_boots": "Noxium Boots",
-	"itemGroup.rubymod.noxium_tab": "Noxium Mod"
+	"itemGroup.rubymod.noxium_tab": "Noxium Mod",
+
+	"bossbar.rubymod.ulyssan_dragon": "Ulyssan, the Frost Dragon"
 }
