@@ -69,7 +69,7 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
     private final FlyingPathNavigation flyingNavigation;
     private int flightTicks;     // how long the dragon has been in the air
 
-    public static final String BOSS_BAR_NAME = "bossbar.rubymod.uyssan_dragon";
+    public static final String BOSS_BAR_NAME = "bossbar.rubymod.ulyssan_dragon";
 
     private final ServerBossEvent bossEvent = new ServerBossEvent(
             Mth.createInsecureUUID(this.random),
@@ -193,6 +193,7 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
     // Here we check which part the player was looking at and apply its multiplier.
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        amount *= 1024.0F / 3000.0F;
         if (source.getDirectEntity() instanceof Player player) {
             UlyssanDragonPart part = this.getPartLookedAt(player);
             if (part != null) {
@@ -227,7 +228,7 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
     // Health, speed, damage ... (registered in RubyMod via EntityAttributeCreationEvent)
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()                                // Werte des Drachen
-                .add(Attributes.MAX_HEALTH, 3000.0)
+                .add(Attributes.MAX_HEALTH, 1024.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
                 .add(Attributes.ATTACK_DAMAGE, 50.0)
                 .add(Attributes.FOLLOW_RANGE, 30.0)
@@ -331,6 +332,7 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
     @Override
     protected void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         LivingEntity target = this.getTarget();
         if (!this.isFlying()) {
             boolean targetFarAway = target != null && this.distanceToSqr(target) > 16 * 16;
@@ -339,7 +341,6 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
                 this.setFlying(true);
                 this.setDeltaMovement(this.getDeltaMovement().add(0, 0.6, 0));   // jump into the air
                 this.triggerAnim("action", "takeoff");
-                this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
             }
         } else {
             this.flightTicks++;
