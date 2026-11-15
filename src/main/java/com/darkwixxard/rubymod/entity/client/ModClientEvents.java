@@ -2,11 +2,12 @@ package com.darkwixxard.rubymod.entity.client;
 
 import com.darkwixxard.rubymod.RubyMod;
 import com.darkwixxard.rubymod.entity.ModEntities;
-import com.darkwixxard.rubymod.entity.custom.UlyssanDragonEntity;
-import com.google.common.eventbus.Subscribe;
+import com.darkwixxard.rubymod.entity.custom.UlyssanDragonPart;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -19,5 +20,16 @@ public final class ModClientEvents {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.ULYSSAN_DRAGON.get(),
                 UlyssanDragonRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static boolean onAttack(InputEvent.InteractionKeyMappingTriggered.Attack event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.hitResult instanceof EntityHitResult hit && hit.getEntity() instanceof UlyssanDragonPart part
+        && mc.player != null && mc.gameMode != null) {
+            mc.gameMode.attack(mc.player, part.getParent());
+            return true;    // true = cancel the normal attack (that one would hit the part)
+        }
+        return false;
     }
 }

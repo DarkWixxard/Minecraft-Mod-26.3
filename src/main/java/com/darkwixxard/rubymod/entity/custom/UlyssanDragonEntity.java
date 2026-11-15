@@ -6,6 +6,8 @@ import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -15,6 +17,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 
 public class UlyssanDragonEntity extends Monster implements GeoEntity {               // The Dragon is an enemy Mob
@@ -90,6 +93,37 @@ public class UlyssanDragonEntity extends Monster implements GeoEntity {         
         // Remember the previous position so that the hitbox moves smoothly
         part.xo = oldX;  part.yo = oldY;  part.zo = oldZ;
         part.xOld = oldX; part.yOld = oldY; part.zOld = oldZ;
+    }
+
+    // Melee hits always arrive at the dragon itself (see ModClientEvents).
+    // Here we check which part the player was looking at and apply its multiplier.
+    @Override
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        if (source.getDirectEntity() instanceof Player player) {
+            UlyssanDragonPart part = this.getPartLookedAt(player);
+            if (part != null) {
+                amount *= part.getDamageMultiplier();
+            }
+        }
+        return super.hurtServer(level, source, amount);
+    }
+
+    // Shoots an invisible ray from the player's eyes and returns the closest part it hits
+    // (null = the body itself is closer, or no part was hit)
+    private UlyssanDragonPart getPartLookedAt(Player player) {
+        Vec3 eye = player.getEyePosition();
+        Vec3 end = eye.add(player.getViewVector(1.0F).scale(8.0));
+        double bestDistance = this.getBoundingBox().clip(eye, end)
+                .map(eye::distanceToSqr).orElse(Double.MAX_VALUE);
+        UlyssanDragonPart best = null;
+        for (UlyssanDragonPart part : this.parts) {
+            var hit = part.getBoundingBox().clip(eye, end);
+            if (hit.isPresent() && eye.distanceToSqr(hit.get()) < bestDistance) {
+                bestDistance = eye.distanceToSqr(hit.get());
+                best = part;
+            }
+        }
+        return best;
     }
 
     // Health, speed, damage ... (registered in RubyMod via EntityAttributeCreationEvent)

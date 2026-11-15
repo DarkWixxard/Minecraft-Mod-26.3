@@ -21,6 +21,9 @@ public class UlyssanDragonPart extends PartEntity<UlyssanDragonEntity> {
         this.refreshDimensions();
     }
 
+    public float getDamageMultiplier() {
+        return this.damageMultiplier;
+    }
 
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {

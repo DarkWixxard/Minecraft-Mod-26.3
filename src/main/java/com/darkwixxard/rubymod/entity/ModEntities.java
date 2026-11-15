@@ -18,7 +18,7 @@ public class ModEntities {
                     EntityType.Builder.of(
                             UlyssanDragonEntity::new,
                             MobCategory.MONSTER)
-                            .sized(5.0F, 4.0F)                     // hitbox: 5 blocks wide, 4 blocks high
+                            //.sized(5.0F, 4.0F)                     // hitbox: 5 blocks wide, 4 blocks high
                             .clientTrackingRange(10)            // big mob: stays visible from further away
                             .build(ENTITY_TYPES.key("ulyssan_dragon")));
 
