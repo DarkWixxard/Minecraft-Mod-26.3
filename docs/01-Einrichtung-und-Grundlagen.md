@@ -4,26 +4,34 @@
 
 | Programm | Warum | Wo |
 |---|---|---|
-| **JDK 25** | Minecraft 26.x läuft nur mit Java 25. Mit Java 21 oder älter klappt nichts. | In IntelliJ: *File → Project Structure → Project → SDK → Download JDK…* (z. B. Eclipse Temurin 25) oder [adoptium.net](https://adoptium.net/) |
-| **IntelliJ IDEA** | Entwicklungsumgebung. Für Java 25 und Gradle 9 brauchst du etwa Version **2025.2 oder neuer**. | *Help → Check for Updates* |
-| **Git / GitHub** | Versionsverwaltung, dein Repo `darkwixxard/minecraft-mod-26.3` | – |
-| **Blockbench** | Modelle für Items, Rüstung und Mobs | [blockbench.net](https://www.blockbench.net/) |
+| **JDK 25** | Minecraft 26.x läuft nur mit Java 25. Mit älterem Java klappt nichts. | In IntelliJ: *File → Project Structure → Project → SDK → Download JDK…* (z. B. Eclipse Temurin 25) oder [adoptium.net](https://adoptium.net/) |
+| **IntelliJ IDEA** (Community reicht) | Entwicklungsumgebung. Für Java 25 und Gradle 9 etwa Version **2025.2 oder neuer**. | *Help → Check for Updates* |
+| **Forge MDK** | Vorlage-Projekt („Mod Development Kit“) | [files.minecraftforge.net](https://files.minecraftforge.net/) → Version wählen → *Mdk* |
+| **Git** (optional) | Versionsverwaltung, Backup auf GitHub | – |
+| **Blockbench** | Modelle für Items, Rüstung, Mobs | [blockbench.net](https://www.blockbench.net/) |
 
-## 2. Projekt in IntelliJ öffnen
+## 2. Neues Projekt aus dem MDK
 
-1. **File → Open** und den Ordner wählen, in dem `build.gradle` **direkt** liegt (bei dir `S:\Mods\26.3\Minecraft-Mod-26.3`), nicht einen Ordner darüber.
+1. MDK-Zip herunterladen und in einen eigenen Ordner entpacken.
+2. In `gradle.properties` bzw. `build.gradle` die Platzhalter ändern: Mod-ID, Gruppe (`com.example.mymod`), Name.
+3. Das Beispiel-Paket in `src/main/java` umbenennen (siehe [Abschnitt 7](#7-pakete-ordner-sauber-organisieren)) und die Hauptklasse anpassen.
+4. In `src/main/resources/META-INF/mods.toml` dieselbe Mod-ID eintragen.
+
+> Die Mod-ID muss **überall gleich** sein: `MODID`-Konstante, `mods.toml`, Ordner `assets/<modid>/` und `data/<modid>/`.
+
+## 3. Projekt in IntelliJ öffnen
+
+1. **File → Open** und den Ordner wählen, in dem `build.gradle` **direkt** liegt – nicht einen Ordner darüber.
 2. Bei der Frage nach Vertrauen: **Trust Project**.
-3. Erscheint unten rechts *„Gradle build scripts found – Load Gradle Project“*, auf **Load** klicken.
-4. Rechts muss danach das **Gradle-Fenster** (Elefanten-Symbol) mit dem Projekt `rubymod` erscheinen.
+3. Erscheint *„Gradle build scripts found – Load Gradle Project“*, auf **Load** klicken.
+4. Rechts muss das **Gradle-Fenster** (Elefanten-Symbol) erscheinen.
 5. **Gradle auf Java 25 stellen** (häufigster Fehler!):
    *File → Settings → Build, Execution, Deployment → Build Tools → Gradle → Gradle JVM* → **Project SDK** bzw. JDK 25.
-6. Im Gradle-Fenster auf **Reload All Gradle Projects** klicken. Der erste Durchlauf dauert 5–15 Minuten, weil Minecraft und Forge heruntergeladen und vorbereitet werden.
+6. Im Gradle-Fenster **Reload All Gradle Projects**. Der erste Durchlauf dauert 5–15 Minuten (Minecraft und Forge werden heruntergeladen und vorbereitet).
 
-## 3. Bauen und Starten
+## 4. Bauen und Starten
 
 ### Über das Terminal
-
-In IntelliJ unten das **Terminal** öffnen (es muss im Projektordner stehen):
 
 ```bash
 # Windows (PowerShell): das .\ ist wichtig!
@@ -35,14 +43,14 @@ In IntelliJ unten das **Terminal** öffnen (es muss im Projektordner stehen):
 ./gradlew runClient
 ```
 
-> **Warum `.\` vor `gradlew.bat`?** PowerShell führt aus Sicherheitsgründen keine Programme aus dem aktuellen Ordner aus, wenn man nicht ausdrücklich `.\` davorschreibt. Ohne kommt: *„Die Benennung "gradlew.bat" wurde nicht als Name eines Cmdlet … erkannt“*.
+> **Warum `.\`?** PowerShell führt Programme aus dem aktuellen Ordner nur aus, wenn man ausdrücklich `.\` davorschreibt. Ohne kommt: *„Die Benennung "gradlew.bat" wurde nicht … erkannt“*.
 
 | Befehl | Was passiert |
 |---|---|
-| `build` | Baut die fertige Mod-Datei `build/libs/rubymod-1.0.0.jar` |
+| `build` | Baut die fertige Mod-Datei nach `build/libs/<modid>-<version>.jar` |
 | `runClient` | Startet Minecraft mit deiner Mod |
 | `runServer` | Startet einen Server (vorher in `run/eula.txt` `eula=true` setzen) |
-| `clean build` | Löscht alles Gebaute und baut neu – hilft bei komischen Fehlern |
+| `clean build` | Alles Gebaute löschen und neu bauen – hilft bei komischen Fehlern |
 
 ### Über eine Run-Configuration (mit Debugger)
 
@@ -50,22 +58,32 @@ Oben rechts **Edit Configurations… → + → Gradle**:
 
 | Feld | Eintrag |
 |---|---|
-| Name | `Minecraft Client` (frei wählbar) |
-| Run / *Tasks and arguments* | `runClient` |
-| Gradle project | dein Projektordner bzw. `rubymod` |
+| Name | z. B. `Minecraft Client` |
+| *Tasks and arguments* | `runClient` |
+| Gradle project | dein Projekt |
 | Environment variables / VM options | leer lassen |
 
-Danach kannst du mit **▶** normal starten oder mit **🐞** im **Debug-Modus**. Im Debug-Modus setzt du mit einem Klick links neben eine Zeilennummer einen **Breakpoint**. Minecraft hält dort an, und du siehst alle Variablen mit ihren aktuellen Werten. Probier es z. B. bei `LOGGER.info("Ruby Mod loaded!");` in `RubyMod.java`.
+- **▶** startet normal.
+- **🐞** startet im **Debug-Modus**. Ein Klick links neben eine Zeilennummer setzt einen **Breakpoint**: Minecraft hält dort an, und du siehst alle Variablen mit ihren Werten. Das ist das beste Werkzeug, um Fehler zu verstehen.
 
-> **Starte nicht über den grünen Pfeil neben `build.gradle`.** Dann startet IntelliJ Gradle „von außen“ mit der Option `-b`, und die gibt es in Gradle 9 nicht mehr: *„Unknown command-line option '-b'“*. Nimm immer das Gradle-Fenster, das Terminal oder eine eigene Run-Configuration.
+> **Nicht über den grünen Pfeil neben `build.gradle` starten.** Dann ruft IntelliJ Gradle mit der Option `-b` auf, die es in Gradle 9 nicht mehr gibt: *„Unknown command-line option '-b'“*.
 
 ### Mod im echten Minecraft spielen
 
-`build/libs/rubymod-1.0.0.jar` und die **GeckoLib-Jar für Forge 26.3** in den `mods`-Ordner einer Forge-26.3-Installation legen.
+Die `.jar` aus `build/libs/` (und alle Bibliotheken, die die Mod braucht, z. B. GeckoLib) in den `mods`-Ordner einer passenden Forge-Installation legen.
 
-## 4. Die Build-Dateien
+### Was wann neu geladen wird
 
-### `build.gradle` (die wichtigen Teile)
+| Änderung an … | So wird sie aktiv |
+|---|---|
+| Texturen, Modelle, Sprachdateien | im Spiel **F3 + T** |
+| Rezepte, Tags, Loot-Tables | `/reload` |
+| Weltgenerierung (`worldgen`, Biome Modifier) | Spiel neu starten; wirkt nur in **neu erzeugten** Chunks |
+| Java-Code | Spiel neu starten |
+
+## 5. Die Build-Dateien
+
+### `build.gradle` (wichtige Teile)
 
 ```groovy
 plugins {
@@ -77,7 +95,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(25)  // Java 25
 minecraft {
     runs {
         configureEach {
-            workingDir = layout.projectDirectory.dir('run')   // hier landen Welten, Logs, Configs
+            workingDir = layout.projectDirectory.dir('run')   // Welten, Logs, Configs landen hier
         }
         register('client')
         register('server') { args '--nogui' }
@@ -85,8 +103,8 @@ minecraft {
 }
 
 repositories {
-    // ...
-    maven {
+    // ... (vom MDK)
+    maven {                       // nur nötig, wenn du GeckoLib benutzt
         name = 'GeckoLib'
         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
@@ -95,20 +113,20 @@ repositories {
 dependencies {
     implementation minecraft.dependency('net.minecraftforge:forge:26.3-66.1.0')
     annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.6'
-    implementation 'com.geckolib:geckolib-forge-26.3:5.5.7'
+    implementation 'com.geckolib:geckolib-forge-26.3:5.5.7'      // optional
 }
 ```
 
-- `repositories` sagt Gradle, **wo** es Bibliotheken herunterladen darf.
-- `dependencies` sagt, **welche** Bibliotheken das Projekt braucht.
-- Für GeckoLib braucht es beides: das Cloudsmith-Repository **und** die Abhängigkeit.
+- `repositories` = **wo** Gradle Bibliotheken herunterladen darf.
+- `dependencies` = **welche** Bibliotheken das Projekt braucht.
+- Eine neue Bibliothek braucht meist **beides**. Nach jeder Änderung: *Reload All Gradle Projects*.
 
 ### `META-INF/mods.toml`
 
-Beschreibt die Mod für Forge: ID, Name, Version und **Abhängigkeiten**. GeckoLib ist dort als Pflicht eingetragen, damit Forge eine klare Meldung zeigt, wenn GeckoLib fehlt:
+Beschreibt die Mod für Forge (ID, Name, Version, Abhängigkeiten). Benutzt deine Mod eine Bibliothek, trag sie ein – dann zeigt Forge eine klare Meldung, wenn sie fehlt:
 
 ```toml
-[[dependencies.rubymod]]
+[[dependencies.mymod]]
 modId="geckolib"
 mandatory=true
 versionRange="[5.5.7,)"
@@ -116,58 +134,56 @@ ordering="AFTER"
 side="BOTH"
 ```
 
-Die `modId` in `mods.toml` muss exakt dem Wert von `RubyMod.MODID` entsprechen (`"rubymod"`).
-
 ### `pack.mcmeta`
 
 ```json
-{ "pack": { "description": "rubymod resources", "min_format": 121, "max_format": 121 } }
+{ "pack": { "description": "mymod resources", "min_format": 121, "max_format": 121 } }
 ```
 
-Seit 1.21.9 gibt es `min_format`/`max_format` statt `pack_format`. 121 ist das Datenpaket-Format von 26.3.
+Seit 1.21.9 gibt es `min_format`/`max_format` statt `pack_format`. Die Zahl hängt von der Minecraft-Version ab (121 = 26.3). Nachschauen: im Minecraft-Wiki unter „Pack format“.
 
-## 5. Der Einstiegspunkt: `RubyMod.java`
+## 6. Der Einstiegspunkt
 
 ```java
-@Mod(RubyMod.MODID)
-public final class RubyMod {
-    public static final String MODID = "rubymod";
+@Mod(MyMod.MODID)
+public final class MyMod {
+    public static final String MODID = "mymod";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public RubyMod(FMLJavaModLoadingContext context) {
+    public MyMod(FMLJavaModLoadingContext context) {
         var modBusGroup = context.getModBusGroup();
 
         ModBlocks.BLOCKS.register(modBusGroup);
         ModItems.ITEMS.register(modBusGroup);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modBusGroup);
-        ModCreativeTabs.registerListeners();
-
         ModEntities.ENTITY_TYPES.register(modBusGroup);
-        EntityAttributeCreationEvent.BUS.addListener(RubyMod::registerAttributes);
 
         FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
     }
-    // ...
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        LOGGER.info("My Mod loaded!");
+    }
 }
 ```
 
-- `@Mod(...)` markiert die Klasse als Mod. Forge erzeugt beim Start ein Objekt davon und ruft dabei den Konstruktor auf.
-- Jedes `DeferredRegister` (Blöcke, Items, Tabs, Entities) muss hier mit `.register(modBusGroup)` **angemeldet** werden. Vergisst du das, existieren deine Items einfach nicht – ohne Fehlermeldung.
+- `@Mod(...)` markiert die Hauptklasse. Forge erzeugt beim Start ein Objekt davon → der Konstruktor läuft.
+- **Jedes `DeferredRegister` muss hier mit `.register(modBusGroup)` angemeldet werden.** Vergisst du das, existieren die Inhalte einfach nicht – ohne Fehlermeldung.
+- `LOGGER.info(...)` schreibt ins Log. Gut zum Prüfen, ob Code überhaupt läuft.
 
-### Events in Forge 26.3 (EventBus 7)
+## 7. Events
 
-Forge benachrichtigt Mods über **Events** („jetzt werden Attribute registriert“, „jetzt wird ein Kreativ-Tab gefüllt“ …). In 26.3 hat **jedes Event seinen eigenen `BUS`**:
+Forge benachrichtigt Mods über **Events** („jetzt werden Attribute registriert“, „jetzt wird ein Kreativ-Tab gefüllt“, „Spieler hat geklickt“ …). In Forge 26.x (EventBus 7) hat **jedes Event seinen eigenen `BUS`**.
 
 ```java
-// Variante 1: direkt anmelden
-EntityAttributeCreationEvent.BUS.addListener(RubyMod::registerAttributes);
-BuildCreativeModeTabContentsEvent.BUS.addListener(ModCreativeTabs::addToVanillaTabs);
+// Variante 1: direkt anmelden (z. B. im Konstruktor der Hauptklasse)
+EntityAttributeCreationEvent.BUS.addListener(MyMod::registerAttributes);
 
 // Variante 2: Lebenszyklus-Events der Mod
 FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
 
-// Variante 3: ganze Klasse automatisch anmelden lassen
-@Mod.EventBusSubscriber(modid = RubyMod.MODID, value = Dist.CLIENT)
+// Variante 3: eine ganze Klasse automatisch anmelden lassen
+@Mod.EventBusSubscriber(modid = MyMod.MODID, value = Dist.CLIENT)
 public final class ModClientEvents {
     @SubscribeEvent   // aus net.minecraftforge.eventbus.api.listener !
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) { ... }
@@ -175,78 +191,88 @@ public final class ModClientEvents {
 ```
 
 **Wichtig:**
-- `@SubscribeEvent` muss aus `net.minecraftforge.eventbus.api.listener` kommen. IntelliJ schlägt manchmal `com.google.common.eventbus.Subscribe` vor – das ist eine ganz andere Bibliothek und tut nichts.
-- Bei Events, die man **abbrechen** kann, gibt die Methode `boolean` zurück: `true` = abbrechen.
-- `value = Dist.CLIENT` bedeutet: Diese Klasse wird nur beim Spieler geladen, nie auf einem Server. Alles mit Rendering, Tastatur oder Bildschirm gehört dorthin.
+- `@SubscribeEvent` muss aus **`net.minecraftforge.eventbus.api.listener`** kommen. IntelliJ schlägt manchmal `com.google.common.eventbus.Subscribe` vor – das ist eine andere Bibliothek und tut nichts.
+- `@SubscribeEvent` wirkt nur in Klassen mit `@Mod.EventBusSubscriber`. Die Methoden müssen `static` sein.
+- Bei **abbrechbaren** Events gibt die Methode `boolean` zurück: `true` = abbrechen.
+- `value = Dist.CLIENT` = Klasse wird nur beim Spieler geladen. Alles mit Rendering, HUD oder Tastatur gehört dorthin.
+- Welche Events es gibt: in IntelliJ im Paket `net.minecraftforge.event` (Server/beide) und `net.minecraftforge.client.event` (nur Client) stöbern.
 
-## 6. Pakete (Ordner) sauber organisieren
+## 8. Pakete (Ordner) sauber organisieren
 
-Java schreibt nicht vor, in welchem Paket eine Klasse liegt. Bewährt hat sich eine Aufteilung nach Themen (wie bei Kaupenjoe):
+Java schreibt nicht vor, in welchem Paket eine Klasse liegt. Bewährt (z. B. bei Kaupenjoe):
 
-- `item/ModItems.java` registriert **alle** Items, auch einfache wie den Rubin.
-- `item/custom/` enthält nur Items mit **eigenem Verhalten** (eigene Klasse, z. B. `NoxiumBowItem extends BowItem`).
+- `item/ModItems.java` registriert **alle** Items, auch einfache.
+- `item/custom/` enthält nur Items mit **eigenem Verhalten** (eigene Klasse).
 - Gleiches Prinzip für `block/custom/` und `entity/custom/`.
-- `entity/client/` enthält alles, was nur beim Spieler läuft (Renderer, Bildschirm-Anzeigen).
+- `entity/client/` enthält alles, was nur beim Spieler läuft.
 
-### Dateien richtig verschieben
+### Dateien richtig verschieben und umbenennen
 
-**Nie im Windows-Explorer verschieben!** Dann stimmen die `package`- und `import`-Zeilen nicht mehr und nichts kompiliert mehr. In IntelliJ:
+**Nie im Windows-Explorer verschieben!** Dann stimmen die `package`- und `import`-Zeilen nicht mehr, und nichts kompiliert.
 
-1. Rechtsklick auf das Paket → **New → Package** (z. B. `item`).
-2. Die Klasse im Projektbaum per Drag & Drop in das neue Paket ziehen.
-3. Im Dialog **Refactor** klicken. IntelliJ passt alle `package`- und `import`-Zeilen automatisch an.
+- **Verschieben:** In IntelliJ die Klasse im Projektbaum per Drag & Drop in das Ziel-Paket ziehen → **Refactor**.
+- **Umbenennen:** Rechtsklick → **Refactor → Rename** (Shift + F6). IntelliJ passt alle Verweise an.
 
-Zum **Umbenennen** genauso: Rechtsklick → **Refactor → Rename** (Shift+F6).
+## 9. Code aus alten Tutorials (z. B. 1.16.5)
 
-## 7. Unterschiede zu Forge 1.16.5
-
-Die Grundidee ist gleich geblieben. Code aus 1.16.5-Tutorials kompiliert in 26.3 aber praktisch **nie** ohne Anpassungen.
+Die Grundidee ist gleich geblieben. Code aus alten Tutorials kompiliert in 26.x aber praktisch **nie** ohne Anpassungen. Übernimm die **Idee**, nicht den Code.
 
 ### Ordner
 
-| Was | 1.16.5 | 26.3 |
+| Was | alt (1.16.5) | neu (26.x) |
 |---|---|---|
 | Rezepte | `data/<mod>/recipes/` | `data/<mod>/recipe/` (Einzahl!) |
 | Loot-Tables | `loot_tables/` | `loot_table/` |
 | Tags | `tags/blocks/`, `tags/items/` | `tags/block/`, `tags/item/` |
 | Item-Modelle | nur `models/item/x.json` | zusätzlich `assets/<mod>/items/x.json` (seit 1.21.4) |
 | Abbau-Werkzeug | im Java-Code | über Tags (`mineable/pickaxe.json`, `needs_iron_tool.json`) |
-| `pack.mcmeta` | `pack_format: 6` | `min_format`/`max_format: 121` |
 
-Falsch benannte Ordner werden **ohne Fehlermeldung** ignoriert – das Rezept fehlt dann einfach.
+Falsch benannte Ordner werden **ohne Fehlermeldung** ignoriert.
 
 ### Build
 
-| | 1.16.5 | 26.3 |
+| | alt | neu |
 |---|---|---|
 | Java | 8 | 25 |
 | Gradle / ForgeGradle | 6–7 / FG 4–5 | 9 / FG 7 |
-| Mappings | MCP-Namen (`func_123`, `field_456`) | keine nötig: Minecraft ist seit 26.1 **nicht mehr verschleiert**, du siehst die echten Mojang-Namen |
+| Mappings | MCP-Namen (`func_123`) | keine nötig: Minecraft ist seit 26.1 nicht mehr verschleiert |
 
 ### Code
 
 ```java
-// 1.16.5
-BLOCKS.register("ruby_block", () -> new Block(AbstractBlock.Properties
+// alt (1.16.5)
+BLOCKS.register("sapphire_block", () -> new Block(AbstractBlock.Properties
     .of(Material.METAL).harvestTool(ToolType.PICKAXE).harvestLevel(2).strength(5f, 6f)));
 
-// 26.3
-BLOCKS.register("ruby_block", () -> new Block(BlockBehaviour.Properties.of()
-    .setId(BLOCKS.key("ruby_block"))   // Pflicht seit 1.21.2
-    .mapColor(MapColor.COLOR_RED)      // "Material" gibt es nicht mehr
-    .requiresCorrectToolForDrops()     // Werkzeug kommt über Tags
+// neu (26.x)
+BLOCKS.register("sapphire_block", () -> new Block(BlockBehaviour.Properties.of()
+    .setId(BLOCKS.key("sapphire_block"))   // Pflicht seit 1.21.2
+    .mapColor(MapColor.COLOR_BLUE)         // "Material" gibt es nicht mehr
+    .requiresCorrectToolForDrops()         // Werkzeug kommt über Tags
     .strength(5f, 6f)));
 ```
 
-Weitere typische Umbenennungen:
-
-| 1.16.5 | 26.3 |
+| alt | neu |
 |---|---|
 | `ResourceLocation` | `Identifier` |
-| `ItemGroup` / `.tab(...)` | `CreativeModeTab`, eigener registrierter Tab oder Event |
+| `ItemGroup` / `.tab(...)` | `CreativeModeTab` (eigener Tab oder Event) |
 | `Food.Builder().saturationMod(...)` | `FoodProperties.Builder().saturationModifier(...)` |
-| `IItemTier` / `IArmorMaterial` (Enums) | `ToolMaterial` / `ArmorMaterial` (Records) |
-| `SwordItem`, `PickaxeItem` … | normales `Item` mit `.sword(...)`, `.pickaxe(...)` in den Properties |
+| `IItemTier` / `IArmorMaterial` | `ToolMaterial` / `ArmorMaterial` |
+| `SwordItem`, `PickaxeItem` … | normales `Item` mit `.sword(...)`, `.pickaxe(...)` |
 | `ArmorItem` | normales `Item` mit `.humanoidArmor(material, type)` |
 | `CompoundNBT` beim Speichern | `ValueInput` / `ValueOutput` |
 | `hurt(...)` | `hurtServer(ServerLevel, DamageSource, float)` |
+| `MobEffects.DAMAGE_BOOST`, `MOVEMENT_SPEED` | `MobEffects.STRENGTH`, `SPEED` |
+
+## Checkliste: neues Projekt
+
+- [ ] JDK 25 installiert, Gradle JVM auf 25
+- [ ] Mod-ID in `MODID`, `mods.toml`, `assets/<modid>`, `data/<modid>` gleich
+- [ ] Paket umbenannt (Refactor, nicht Explorer)
+- [ ] `runClient` startet, im Log steht deine `LOGGER.info`-Zeile
+- [ ] Erst committen, wenn es startet – dann hast du immer einen funktionierenden Stand
+
+## Zum Ausprobieren
+
+- Setz einen Breakpoint in `commonSetup` und starte mit 🐞. Schau dir im Debugger die Variable `event` an.
+- Öffne mit **Strg + N** die Klasse `Items` und schau, wie Mojang Diamant, Apfel und Elytra registriert.

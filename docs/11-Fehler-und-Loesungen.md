@@ -1,133 +1,97 @@
 # 11 – Fehler und Lösungen
 
-Alle Fehler, die beim Bau der Mod aufgetreten sind – mit Ursache und Lösung. Ganz unten stehen die **Punkte, die im aktuellen Stand noch offen sind**.
+## 1. Fehler lesen – wo steht was?
 
-## Wie man Fehler liest
+| Wo | Was du siehst | Was wichtig ist |
+|---|---|---|
+| **IntelliJ-Editor** | rot unterstrichener Code | Maus drüber = Erklärung. **Alt + Enter** = Lösungsvorschläge (z. B. Import hinzufügen). |
+| **Build-Fenster** | `Datei.java:Zeile: Fehler: Beschreibung` | immer die **erste** rote Zeile und *„What went wrong:“* |
+| **Spiel-Log** (`run/logs/latest.log`, Run-Fenster) | `ERROR`/`WARN`-Zeilen | nach deiner Mod-ID suchen (Strg + F) |
+| **Absturz** (`run/crash-reports/`) | langer Stacktrace | erste Zeile mit `Caused by:` und die erste Zeile darunter mit **deinem Paket** (`com.example.mymod`) – dort ist der Fehler |
+| **Datenfehler** (Tags, Rezepte, Loot) | Spiel startet trotzdem, Log: `Couldn't load tag …`, `Couldn't parse …` | nach jedem Start einmal das Log nach der Mod-ID durchsuchen |
 
-- **In IntelliJ:** Rot unterstrichener Code. Maus drüber → Erklärung. **Alt + Enter** → Lösungsvorschläge (z. B. fehlenden Import hinzufügen).
-- **Beim Bauen:** im Build-Fenster unten. Wichtig ist immer die **erste** rote Zeile und der Teil unter *„What went wrong:“*. Format: `Datei.java:Zeile: Fehler: Beschreibung`.
-- **Im Spiel:** im Log (`run/logs/latest.log`) oder im Run-Fenster. Bei einem Absturz zusätzlich `run/crash-reports/`. Wichtig ist die erste Zeile mit `Caused by:` und die erste Zeile darunter mit `com.darkwixxard`.
-- **Datenfehler** (Tags, Rezepte, Loot-Tables): Minecraft startet trotzdem, schreibt aber `ERROR … Couldn't load tag …` ins Log. Diese Zeilen nach dem Start einmal suchen (Strg+F im Run-Fenster nach `rubymod`).
+**Stille Fehler:** Falsch benannte Ordner oder Dateien (z. B. `recipes/` statt `recipe/`) werden **ohne jede Meldung** ignoriert. Wenn etwas „einfach nicht da“ ist: Pfad und Namen Buchstabe für Buchstabe prüfen.
 
-## 1. Einrichtung und Gradle
+## 2. Einrichtung und Gradle
 
 | Fehler | Ursache | Lösung |
 |---|---|---|
-| `Unknown command-line option '-b'` | IntelliJ startet `build.gradle` „von außen“ mit `-b`. Die Option gibt es in Gradle 9 nicht mehr. | Projekt richtig als Gradle-Projekt öffnen (Ordner mit `build.gradle` öffnen, *Load Gradle Project*). Über das Gradle-Fenster oder das Terminal starten, nicht über den Pfeil neben `build.gradle`. Alte Run-Configs mit `-b` löschen. IntelliJ aktualisieren. |
-| `Die Benennung "gradlew.bat" wurde nicht … erkannt` | PowerShell führt Programme im aktuellen Ordner nur mit `.\` aus. | `.\gradlew.bat build` |
+| `Unknown command-line option '-b'` | IntelliJ startet `build.gradle` „von außen“ mit `-b`; gibt es in Gradle 9 nicht mehr. | Ordner mit `build.gradle` richtig öffnen (*Load Gradle Project*), über Gradle-Fenster/Terminal starten, Run-Configs mit `-b` löschen, IntelliJ aktualisieren. |
+| `Die Benennung "gradlew.bat" wurde nicht … erkannt` | PowerShell braucht `.\` | `.\gradlew.bat build` |
 | `Dependency requires at least JVM runtime version 25` | Gradle läuft mit altem Java. | *Settings → Build Tools → Gradle → Gradle JVM* auf JDK 25. |
-| `Unsupported class file major version 69` | Irgendwo ein falsches Java. | wie oben, auch *Project Structure → SDK* prüfen. |
-| Netzwerk-/Download-Fehler beim ersten Sync | Download abgebrochen | Einfach noch einmal *Reload All Gradle Projects*. |
+| `Unsupported class file major version …` | irgendwo falsches Java | wie oben + *Project Structure → SDK* |
+| `Could not resolve …` / Download-Fehler | Netzwerk, fehlendes `repositories`-Repo | Repository prüfen, *Reload All Gradle Projects* |
 
-## 2. Java-Code
+## 3. Java-Code
 
 | Fehler | Ursache | Lösung |
 |---|---|---|
-| `Cannot resolve symbol ModBlocks` (o. ä.) | Klasse liegt in einem anderen Paket, der `import` fehlt oder ist alt. | Alt + Enter → *Import class*. Oder `import com.darkwixxard.rubymod.block.ModBlocks;` von Hand. |
-| Nach dem Verschieben ist alles rot | Dateien im Explorer verschoben → `package`-Zeilen und `import`s stimmen nicht mehr. | In IntelliJ per Drag & Drop mit **Refactor** verschieben. Nachträglich: `package`-Zeile oben in jeder Datei an den Ordner anpassen und Imports neu setzen. |
-| `RubyMod.java` „zerfetzt“ nach Umbenennen von `registry` → `materials` | Die `import`-Zeilen zeigen noch auf das alte Paket. | Imports auf `…rubymod.materials.…` ändern. Für die Zukunft: Umbenennen mit **Shift + F6** (Refactor → Rename). |
-| `Cannot resolve method 'registerListeners'` | Methode in `ModCreativeTabs` auskommentiert/gelöscht, aber in `RubyMod` noch aufgerufen. | Beides zusammen ein- oder auskommentieren. |
-| Code aus 1.16.5 kompiliert nicht | Fast alle Namen haben sich geändert. | Idee übernehmen, Code neu schreiben. Vorher die Vanilla-Klasse anschauen (Strg + N). Siehe [01](01-Einrichtung-und-Grundlagen.md#7-unterschiede-zu-forge-1165). |
-| `createAnimatableInstanceCache` → „rename reference“ | Alter Name aus GeckoLib 4. | GeckoLib 5: `GeckoLibUtil.createInstanceCache(this)` |
-| `cannot find symbol: class UlyssanDragonRenderer` | Die Klasse gab es noch gar nicht. | Datei `UlyssanDragonRenderer.java` in `entity/client/` anlegen. |
-| `@SubscribeEvent` macht nichts | Falscher Import: `com.google.common.eventbus.Subscribe`. | `net.minecraftforge.eventbus.api.listener.SubscribeEvent` |
-| `UlyssanDragonEntity kann nicht in UlyssanDragonPart konvertiert werden` bei `super(parent)` | `extends PartEntity<UlyssanDragonPart>` – in den spitzen Klammern steht der falsche Typ. | `extends PartEntity<UlyssanDragonEntity>` (der Parent ist der Drache). |
-| `Methode überschreibt oder implementiert keine Methode aus einem Supertyp` | Tippfehler im Methodennamen oder falscher Parametertyp, z. B. `getDimentions`. | Exakt `getDimensions(Pose pose)`. Tipp: **Strg + O** (Override Methods) fügt die richtige Signatur ein. |
-| `canUse` in `registerGoals` rot | `);` direkt hinter `new WaterAvoidingRandomStrollGoal(this, 0.8)`, dann hängt `canUse` lose in der Methode. | Anonyme Klasse: `new …(this, 0.8) { @Override public boolean canUse() {…} });` |
-| `Unable to find animation: 'animation.ulyssan_dragon.idle_calm'` | Name im Code ≠ Name in der `.animation.json`. | Namen exakt angleichen (in der JSON nachschauen). |
+| `Cannot resolve symbol X` | Import fehlt oder zeigt aufs falsche Paket. | Alt + Enter → *Import class*. |
+| Nach dem Verschieben ist alles rot | Dateien im Explorer verschoben → `package`/`import` falsch. | In IntelliJ mit **Refactor** verschieben (Drag & Drop). Nachträglich: `package`-Zeile und Imports anpassen. |
+| Viele Imports kaputt nach Umbenennen eines Pakets | Umbenannt ohne Refactor. | Imports anpassen; künftig **Shift + F6**. |
+| `Cannot resolve method 'xyz'` | Methode gelöscht/auskommentiert, Aufruf noch da (oder umgekehrt). | Beides zusammen ändern. |
+| Code aus Tutorial kompiliert nicht | andere Minecraft-Version | Idee übernehmen, Code neu schreiben; Vanilla-Klasse lesen ([01](01-Einrichtung-und-Grundlagen.md#9-code-aus-alten-tutorials-z-b-1165)). |
+| Methode „gibt es nicht“ (z. B. `createAnimatableInstanceCache`) | alter Name einer Bibliothek | Doku/Changelog der Bibliothek; Strg + Klick auf die Klasse und Methoden ansehen. GeckoLib 5: `createInstanceCache`. |
+| `cannot find symbol: class XyzRenderer` | Klasse existiert noch nicht / falsch geschrieben | Datei anlegen, Namen prüfen. |
+| `@SubscribeEvent` macht nichts | falscher Import (`com.google.common.eventbus.Subscribe`) oder Klasse ohne `@Mod.EventBusSubscriber`, Methode nicht `static` | `net.minecraftforge.eventbus.api.listener.SubscribeEvent`, Klasse annotieren, `static` |
+| `X kann nicht in Y konvertiert werden` bei `super(...)` | falscher Typ in spitzen Klammern (Generics), z. B. `PartEntity<Teil>` statt `PartEntity<Mob>` | Generic-Typ prüfen |
+| `Methode überschreibt oder implementiert keine Methode aus einem Supertyp` | Tippfehler im Namen oder falsche Parameter | **Strg + O** und die Methode einfügen lassen |
+| `';' expected`, `class, interface … expected` | Klammern/Semikolon falsch (oft bei anonymen Klassen) | Klammern zählen; IntelliJ markiert die Gegenklammer, wenn der Cursor daneben steht |
+| `Missing return statement` | Methode mit Rückgabetyp gibt nicht in jedem Fall etwas zurück | `return` am Ende ergänzen |
+| Code nach `return` wird nie ausgeführt | `return` beendet die Methode | Ergebnis in Variable speichern, danach weitermachen, am Ende `return` |
+| `NullPointerException` mit `RegistryObject.get()` | `.get()` zu früh (z. B. in `static`-Feld, bevor registriert) | erst in Lambdas/Methoden aufrufen, die später laufen |
 
-## 3. Ressourcen und Aussehen
-
-| Problem | Ursache | Lösung |
-|---|---|---|
-| Item im Inventar lila-schwarz, Block in der Welt richtig | Datei in `assets/rubymod/items/` fehlt. | `items/<name>.json` mit Verweis aufs Modell anlegen. |
-| Stiefel lila-schwarz | `"model": "rubymod:item/noxium_boots.json"` – die Endung ist zu viel. | `"rubymod:item/noxium_boots"` |
-| Partikel beim Zerbrechen ohne Textur | `"particle"` im Modell zeigt auf ein Bild, das es nicht gibt. | auf `"rubymod:item/armor/noxium_armor"` setzen |
-| GeckoLib-Rüstung unsichtbar | Datei hieß `CustomArmor.geo.json`, GeckoLib sucht `noxium_armor.geo.json`. | Dateinamen exakt so, klein geschrieben. |
-| Keine Knochen in Blockbench | Projekt nicht als *Armor* angelegt, oder GeckoLib-Plugin veraltet / Blockbench nicht neu gestartet. | Plugin aktualisieren, Blockbench neu starten, *File → Project… → Model Type: Armor*. |
-| Feld „Position“ in Blockbench zeigt komische Werte | Zeigt nur die untere hintere linke Ecke des **ersten** markierten Würfels. | Mit dem Verschieben-Werkzeug an den Pfeilen ziehen statt Zahlen tippen, Modus **Global**. |
-| Hose verschoben, Beine wandern beim Laufen | Pivots der `armor…Leg/Boot`-Knochen ≠ Pivots der `biped…Leg`-Knochen. In der Datei ist X außerdem gespiegelt. | Pivots angleichen: in der Datei `[±2, 12, 0]`. Siehe [04](04-Ruestung.md#in-der-exportierten-datei-ist-x-gespiegelt). |
-| Stiefel zu tief / zu hoch | Würfel nicht passend zur Fußsohle verschoben. | Sohle bis y = −1, Rest darüber. |
-| Rechtes Bein 1 Pixel zu weit außen | Beim Verschieben verrutscht. | korrigierte `.geo.json` |
-| Änderung an Java-Code wirkt nicht | Java wird nur beim Neustart geladen. | Spiel neu starten. F3 + T lädt nur Texturen/Modelle neu. |
-
-## 4. Welt und Spielverhalten
+## 4. Ressourcen und Aussehen
 
 | Problem | Ursache | Lösung |
 |---|---|---|
-| Noxium-Erz nie gefunden, Rubin schon | Alte Welt: Erze entstehen nur in neu erzeugten Chunks. Oder zu hoch gesucht. | Neue Welt, auf Y −16 bis −30 suchen. Test: `/fill ~-10 -60 ~-10 ~10 0 ~10 minecraft:air replace minecraft:deepslate` |
-| Noxium droppt mit jeder Spitzhacke | Nur in `mineable/pickaxe.json`, aber in keinem Stufen-Tag. | `needs_diamond_tool.json` + `incorrect_for_diamond_tool.json` (siehe [03](03-Erze-und-Weltgenerierung.md#5-mit-welchem-werkzeug-man-ein-erz-abbauen-darf)) – **und die Dateinamen müssen stimmen**, siehe offene Punkte. |
-| Drop-Menge ändern | – | `set_count` in der Loot-Table, vor `apply_bonus`. |
-| Haltbarkeits-Multiplikator „geht nicht auf 40“ | Es gibt keine Grenze. Meist alter Gegenstand oder Spiel nicht neu gestartet. | Neues Teil aus dem Kreativ-Tab, F3 + H für Haltbarkeit. |
-| Drache verschwindet nach einer Weile | Normales Monster-Despawn (> 32 Blöcke). | `removeWhenFarAway` → `false` ([10](10-Drache-Boss.md#1-despawn-verhindern)) |
-| Drache am Kopf nicht schlagbar | Forge 26.3 findet Teile beim Schlag-Paket nicht. | Schlag im Client auf den Parent umleiten ([07](07-Drache-Hitboxen.md#5-der-forge-fehler-schläge-auf-teile-kommen-nicht-an)) |
-| `MAX_HEALTH 3000` wird zu 1024 | Hartes Maximum in Minecraft. | Schaden in `hurtServer` skalieren ([10](10-Drache-Boss.md#4-warum-maximal-1024-leben)) |
-| Bossbar bewegt sich nicht bei Schaden | `setProgress` stand im Abheben-`if`. | Direkt unter `super.customServerAiStep(level);` |
-| Über der Bossbar steht der rohe Schlüssel | Tippfehler `uyssan` im Schlüssel, passte nicht zur Sprachdatei. | Schlüssel in Code und Sprachdateien angleichen. |
-| Absturz beim Abbrechen des Bossbar-Events | Forge-Fehler (NullPointerException in `BossHealthOverlay`). | Nicht abbrechen, sondern eigene HUD-Ebene darüber zeichnen ([10](10-Drache-Boss.md#3-eigene-bossbar-textur)). |
+| Lila-schwarzes Muster | Modell oder Textur nicht gefunden | Pfade prüfen, **keine Dateiendung** in Pfaden, Kleinschreibung, Log nach `Unable to load model` / `Missing texture` durchsuchen |
+| Item lila-schwarz, Block in der Welt richtig | `assets/<modid>/items/<name>.json` fehlt | anlegen |
+| Name erscheint als `item.mymod.xyz` | Eintrag in `lang` fehlt oder Kommafehler macht die Datei kaputt | Eintrag ergänzen, JSON prüfen (z. B. mit einem JSON-Validator) |
+| Partikel beim Abbauen/Zerbrechen ohne Textur | `"particle"` im Modell zeigt auf fehlendes Bild | auf existierende Textur setzen |
+| GeckoLib-Modell unsichtbar | Dateiname passt nicht zum Namen im Code | alle drei Dateien gleich benennen, klein |
+| `Unable to find animation: '…'` | Animationsname im Code ≠ in der JSON | Namen aus der JSON kopieren |
+| GeckoLib-Rüstung verschoben, wandert beim Laufen | Pivots der `armor…`-Knochen ≠ `biped…`-Knochen (in der Datei ist X gespiegelt) | Pivots angleichen ([04](04-Ruestung.md#in-der-exportierten-datei-ist-x-gespiegelt)) |
+| Keine Knochen in Blockbench | Projekt nicht als *Armor*, Plugin alt, Blockbench nicht neu gestartet | Plugin aktualisieren, neu starten, *File → Project… → Model Type: Armor* |
+| Feld „Position“ in Blockbench verwirrend | zeigt nur Ecke des **ersten** markierten Würfels | mit dem Verschieben-Werkzeug ziehen, Modus **Global** |
+| Änderung wirkt nicht | Java-Code wird nur beim Neustart geladen | Neustart; F3 + T nur für Texturen/Modelle, `/reload` für Daten |
 
----
+## 5. Daten (Tags, Rezepte, Loot, Welt)
 
-## 5. ⚠️ Offene Punkte im aktuellen Stand
+| Problem | Ursache | Lösung |
+|---|---|---|
+| Rezept fehlt | falscher Ordner (`recipes/`), Tippfehler in einer ID, JSON-Fehler | Log prüfen; Ordner `recipe/` |
+| `Couldn't load tag … missing following references: …` | ein Eintrag existiert nicht (z. B. `minecraft:vines` statt `minecraft:vine`) → **ganzer Tag** lädt nicht | ID korrigieren |
+| Tag im Tag ohne `#` | `"mymod:my_tag"` statt `"#mymod:my_tag"` wird als **Item** gesucht | `#` davor |
+| Vanilla-Tag wirkt nicht | Dateiname ist kein echter Vanilla-Tag (z. B. `tags/item/bow.json` statt `tags/item/enchantable/bow.json`) | Namen in der Minecraft-Bibliothek nachschauen |
+| Vanilla-Items verlieren Eigenschaften | `"replace": true` in einem Vanilla-Tag | `"replace": false` |
+| Block droppt nichts | Loot-Table fehlt oder falscher Pfad | `data/<modid>/loot_table/blocks/<name>.json` |
+| Block mit jeder Spitzhacke abbaubar | kein Stufen-Tag, oder Tag-Datei falsch benannt/abgelegt (`need_…` statt `needs_…`, Unterordner `mineable/`) | [03](03-Erze-und-Weltgenerierung.md#5-mit-welchem-werkzeug-man-abbauen-darf) |
+| Werkzeug baut eigenes Erz nicht ab | Material-Stufe zu niedrig | `INCORRECT_FOR_…` passend wählen |
+| Erz nicht zu finden | alte Chunks, falsche Höhe, schwer sichtbar | neue Welt, F3, `/fill … replace` ([03](03-Erze-und-Weltgenerierung.md#6-testen)) |
 
-Diese Dinge sind mir beim Durchsehen deines aktuellen Repos (Commit „Fix the Progressbar“) aufgefallen:
+## 6. Mobs und Spielverhalten
 
-### 5.1 Noxium lässt sich mit jeder Spitzhacke abbauen
+| Problem | Ursache | Lösung |
+|---|---|---|
+| Absturz beim Spawnen | Attribute nicht angemeldet / Renderer nicht registriert | [06](06-Eigener-Mob-mit-GeckoLib.md#4-attribute-anmelden) |
+| Mob winzig treffbar / läuft durch enge Gänge | `sized(...)` fehlt | Haupt-Hitbox setzen |
+| Attributwert wirkt nicht | über Maximum (z. B. `KNOCKBACK_RESISTANCE` > 1, `MAX_HEALTH` > 1024) → still gekappt | Grenzen in `Attributes` nachschauen |
+| Mob greift nicht an | im Kreativ-Modus getestet | Survival |
+| Mob verschwindet | normales Despawn | `removeWhenFarAway` → `false` ([10](10-Boss-Funktionen.md#1-despawn-verhindern)) |
+| Nahkampf auf Teil-Hitbox wirkungslos | Forge 26.3 findet Mod-Teile beim Schlag nicht | Umleitung im Client ([07](07-Mob-Hitboxen.md#6-forge-eigenheit-nahkampf-schläge-auf-teile-kommen-nicht-an)) |
+| Animation passt nicht zum Zustand | Reihenfolge der `if`s im Controller | Tod → Sonderzustände → Kampf → normal |
+| Client-Animation kennt einen Server-Wert nicht | normales Feld statt `SynchedEntityData` | [09](09-Mob-Fliegen.md#2-synchronisierte-daten) |
+| Zustand nach Neuladen weg | nicht gespeichert | `addAdditionalSaveData` / `readAdditionalSaveData` |
+| Bossbar bewegt sich nicht | `setProgress` nicht jeden Tick (z. B. in einem `if`) | direkt unter `super.customServerAiStep(level)` |
+| Absturz beim Abbrechen des Bossbar-Events | Forge-Eigenheit (NullPointerException) | nicht abbrechen, eigene HUD-Ebene ([10](10-Boss-Funktionen.md#3-eigene-bossbar-textur)) |
 
-Die beiden Tag-Dateien liegen an falscher Stelle bzw. sind falsch benannt. Minecraft ignoriert sie ohne Fehlermeldung.
+## 7. Allgemeine Strategie bei Fehlern
 
-| jetzt | richtig |
-|---|---|
-| `data/minecraft/tags/block/need_diamond_tool.json` | `data/minecraft/tags/block/needs_diamond_tool.json` (mit **s**) |
-| `data/minecraft/tags/block/mineable/incorrect_for_diamond_tool.json` | `data/minecraft/tags/block/incorrect_for_diamond_tool.json` (ohne `mineable/`) |
-
-### 5.2 Tag-Fehler beim Serverstart
-
-Im Log stehen beim Start diese zwei Fehler:
-
-```
-Couldn't load tag rubymod:bogged_tool_materials as it is missing following references: minecraft:vines
-Couldn't load tag rubymod:repairs_noxium_armor as it is missing following references: rubymod:noxium_tool_materials
-```
-
-- `bogged_tool_materials.json`: Das Item heißt `minecraft:vine` (Einzahl), nicht `vines`. Weil ein Eintrag fehlt, lädt der **ganze Tag** nicht → Sumpf-Werkzeuge lassen sich am Amboss nicht reparieren (und spätere Rezepte mit diesem Tag würden nicht funktionieren).
-- `repairs_noxium_armor.json`: `rubymod:noxium_tool_materials` ist ein **Tag**, kein Item. Es fehlt das `#`: `"#rubymod:noxium_tool_materials"`. Bis dahin lässt sich die Noxium-Rüstung nicht reparieren.
-
-### 5.3 Bogen-Tag
-
-`data/minecraft/tags/item/bow.json` gibt es in Minecraft nicht, und darin steht `rubymod:noxium_axe`. Richtig: `data/minecraft/tags/item/enchantable/bow.json` mit `"rubymod:noxium_bow"`.
-
-### 5.4 Fehlende Werkzeuge und Rüstung in Vanilla-Tags
-
-In `swords.json`, `pickaxes.json`, `axes.json`, `shovels.json`, `hoes.json`, `head_armor.json` usw. stehen nur die Rubin-Sachen. Eis-, Sumpf- und Noxium-Werkzeuge sowie die Noxium-Rüstung fehlen.
-
-### 5.5 Doppelte Attribut-Registrierung in `RubyMod.java`
-
-```java
-@SubscribeEvent
-public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) { ... }
-```
-
-Diese Methode ist überflüssig. Die Attribute werden schon über `EntityAttributeCreationEvent.BUS.addListener(RubyMod::registerAttributes)` angemeldet. `@SubscribeEvent` allein bewirkt hier nichts, weil `RubyMod` kein `@Mod.EventBusSubscriber` hat. → Löschen.
-
-### 5.6 Haupt-Hitbox auskommentiert
-
-In `ModEntities` ist `.sized(5.0F, 4.0F)` auskommentiert. Damit ist der Drache für Minecraft nur 0.6 × 1.8 Blöcke groß. → Wieder einkommentieren, am besten mit `.sized(3.0F, 3.0F)`.
-
-### 5.7 Reihenfolge im Animations-Controller
-
-`isAggressive()` steht vor `isFlying()`. Ein fliegender Drache mit Ziel zeigt dann die Renn-Animation in der Luft. → Flug-Block vor den Kampf-Block setzen.
-
-### 5.8 `KNOCKBACK_RESISTANCE 10.0`
-
-Maximum ist 1.0. Wird stillschweigend auf 1 gesetzt. → Ehrlich `1.0` hinschreiben.
-
-### 5.9 Name des Drachen fehlt in den Sprachdateien
-
-`"entity.rubymod.ulyssan_dragon": "Ulyssan"` in `en_us.json` und `de_de.json` ergänzen (für Todesnachrichten, Namensschild-Anzeige usw.).
-
-### 5.10 Kleinigkeiten
-
-- `ModFoodProperties.RUBY_APPLE` wird nicht benutzt (die Werte stehen direkt in `ModItems`). Entweder benutzen (`p.food(ModFoodProperties.RUBY_APPLE)`) oder löschen.
-- `ModEntities` importiert sich selbst (`import com.darkwixxard.rubymod.entity.ModEntities;`). Harmlos, kann weg.
-- In `mods.toml` steht in der Beschreibung noch nur „Adds rubies, the Block of Ruby and the Ruby Apple“.
+1. **Die erste Fehlermeldung lesen**, nicht die letzte. Folgefehler verschwinden oft mit dem ersten.
+2. **Was hat sich zuletzt geändert?** Mit Git: `git diff` zeigt alle Änderungen seit dem letzten Commit.
+3. **Klein testen:** Neue Funktion erst minimal einbauen, starten, dann erweitern.
+4. **Log-Ausgaben** einbauen: `MyMod.LOGGER.info("Wert: {}", wert);` – läuft der Code überhaupt? Welche Werte kommen an?
+5. **Debugger** mit Breakpoint ([01](01-Einrichtung-und-Grundlagen.md#über-eine-run-configuration-mit-debugger)).
+6. **Vanilla vergleichen:** Wie macht Mojang dasselbe?
+7. **Oft committen** – dann kannst du jederzeit zum letzten funktionierenden Stand zurück.

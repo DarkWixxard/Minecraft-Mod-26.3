@@ -1,5 +1,7 @@
 # 12 – Werkzeuge und Quellen
 
+Zum Nachschlagen: Programme, Tastenkürzel, Lernquellen und die wichtigsten Java-Begriffe.
+
 ## 1. IntelliJ-Tastenkürzel, die beim Modding am meisten helfen
 
 | Kürzel | Was |
@@ -26,6 +28,8 @@ Der beste Weg, etwas Neues zu lernen: **schauen, wie Vanilla es macht.**
 | einen fliegenden Mob | `Bee`, `Parrot`, `Allay`, `Phantom` |
 | einen Bogen | `BowItem`, `CrossbowItem` |
 | Despawn-Regeln | `Mob.checkDespawn` |
+| einen Mob mit Teil-Hitboxen und Boss-Phasen | `EnderDragon`, `WitherBoss`, `Warden` |
+| ein neues Erz | `data/minecraft/worldgen/…/ore_diamond.json` |
 | eine eigene Elytra | `Items.ELYTRA` (Komponente `DataComponents.GLIDER`), `LivingEntity.canGlide`, `WingsLayer`, `equipment/elytra.json` |
 
 ## 2. Blockbench
@@ -51,7 +55,7 @@ Der beste Weg, etwas Neues zu lernen: **schauen, wie Vanilla es macht.**
 | **[Modrinth](https://modrinth.com/) / [CurseForge](https://www.curseforge.com/minecraft)** | Open-Source-Mods zum Anschauen |
 | **Vanilla-Modelle** | in IntelliJ, z. B. `ZombieModel`, `WolfModel` |
 
-**Lizenz beachten!** „CC0“, „CC-BY“ (Namen nennen) oder „free to use“ sind meist okay. Steht nichts dabei: den Ersteller fragen oder nur zum Üben benutzen. Das Ulyssan-Modell hast du direkt vom Ersteller bekommen.
+**Lizenz beachten!** „CC0“, „CC-BY“ (Namen nennen) oder „free to use“ sind meist okay. Steht nichts dabei: den Ersteller fragen oder nur zum Üben benutzen.
 
 > **BBCode** (z. B. `[b]fett[/b]` in Foren) hat nichts mit Blockbench (`.bbmodel`) zu tun.
 
@@ -86,20 +90,20 @@ Der beste Weg, etwas Neues zu lernen: **schauen, wie Vanilla es macht.**
 |---|---|
 | [„Java ist auch eine Insel“](https://openbook.rheinwerk-verlag.de/javainsel/) | Kostenloses, umfassendes Java-Buch. Solide Grundlagen (Klassen, Vererbung, Lambdas, Generics) helfen mehr als jedes Tutorial. |
 
-## 5. Java-Begriffe, die in dieser Mod vorkommen
+## 5. Java-Begriffe, die beim Modding ständig vorkommen
 
-| Begriff | Beispiel aus der Mod | Bedeutung |
+| Begriff | Beispiel | Bedeutung |
 |---|---|---|
-| **Klasse / Objekt** | `UlyssanDragonEntity` / jeder einzelne Drache | Bauplan / ein gebautes Exemplar |
-| **Konstruktor** | `public UlyssanDragonEntity(EntityType<…> type, Level level)` | heißt wie die Klasse, kein Rückgabetyp, läuft beim Erzeugen |
+| **Klasse / Objekt** | `WyvernEntity` / jeder einzelne Drache | Bauplan / ein gebautes Exemplar |
+| **Konstruktor** | `public WyvernEntity(EntityType<…> type, Level level)` | heißt wie die Klasse, kein Rückgabetyp, läuft beim Erzeugen |
 | **Vererbung** | `extends Monster`, `extends BowItem` | übernimmt alles von der Elternklasse |
 | **Interface** | `implements GeoEntity` | Versprechen: „diese Methoden gibt es bei mir“ |
 | **`@Override`** | `@Override public boolean hurtServer(...)` | „überschreibt eine Methode der Elternklasse“ – der Compiler prüft das |
 | **`super.…`** | `super.hurtServer(level, source, amount)` | ruft die Version der Elternklasse auf |
 | **`static final`** | `RawAnimation IDLE` | eine Konstante, die es nur einmal gibt |
 | **Lambda** | `() -> new Block(...)`, `test -> PlayState.STOP` | kleine Funktion ohne Namen |
-| **Methodenreferenz** | `UlyssanDragonEntity::new`, `RubyMod::registerAttributes` | Verweis auf eine vorhandene Methode |
-| **Generics** | `RegistryObject<Item>`, `PartEntity<UlyssanDragonEntity>` | Typ in spitzen Klammern: „wovon“ |
+| **Methodenreferenz** | `WyvernEntity::new`, `MyMod::registerAttributes` | Verweis auf eine vorhandene Methode |
+| **Generics** | `RegistryObject<Item>`, `PartEntity<WyvernEntity>` | Typ in spitzen Klammern: „wovon“ |
 | **Anonyme Klasse** | `new WaterAvoidingRandomStrollGoal(this, 0.8) { … }` | Unterklasse ohne Namen, nur für diese Stelle |
 | **Innere Klasse** | `private class DragonFlyAroundGoal` | Klasse in einer Klasse, kann auf deren Felder zugreifen |
 | **record** | `record SetEffect(…)`, `record Bar(…)` | kurze Klasse, die nur Daten hält |
@@ -107,3 +111,19 @@ Der beste Weg, etwas Neues zu lernen: **schauen, wie Vanilla es macht.**
 | **Ternärer Operator** | `flying ? a : b` | kurzes if/else |
 | **switch-Ausdruck** | `switch (index) { case 1 -> …; default -> …; }` | Wert je nach Fall |
 | **Optional** | `getBoundingBox().clip(eye, end)` | „vielleicht ein Wert, vielleicht keiner“ |
+
+## 6. Wie es weitergehen kann
+
+Themen, die in diesem Leitfaden nicht vorkommen, aber gut als Nächstes passen:
+
+| Thema | Stichworte zum Suchen |
+|---|---|
+| Datengenerierung (JSON-Dateien per Code erzeugen statt von Hand) | `runData`, `DataGenerator`, `RecipeProvider`, `LootTableProvider` |
+| Block-Entities (Blöcke mit Inventar/Logik, z. B. eigener Ofen) | `BlockEntity`, `BlockEntityType`, `MenuType` |
+| Eigene Menüs/GUIs | `AbstractContainerMenu`, `AbstractContainerScreen` |
+| Eigene Verzauberungen | `data/<modid>/enchantment/` (seit 1.21 datengetrieben) |
+| Eigene Effekte | `MobEffect`, Registry `MOB_EFFECTS` |
+| Sounds | `SoundEvent`, `sounds.json` |
+| Netzwerk (eigene Pakete Client ↔ Server) | `SimpleChannel` / Forge Networking |
+| Konfigurationsdatei | `ForgeConfigSpec` |
+| Natürliches Spawnen von Mobs | Biome Modifier `forge:add_spawns`, `SpawnPlacements` |

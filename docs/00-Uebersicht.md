@@ -1,89 +1,95 @@
-# Ruby Mod – Dokumentation
+# Minecraft-Modding mit Forge – Leitfaden
 
-Diese Dokumentation fasst alles zusammen, was beim Bau der **Ruby Mod** für **Minecraft Forge 26.3** gemacht und gelernt wurde: vom ersten Projekt-Setup über Erze, Werkzeuge und Rüstung bis zum fliegenden Boss-Drachen mit eigener Bossbar.
+Dieser Leitfaden erklärt Schritt für Schritt, wie man eine Mod für **Minecraft Forge** baut: vom Projekt-Setup über Blöcke, Items, Erze und Rüstung bis zu einem fliegenden Boss-Mob mit Animationen und eigener Bossbar.
 
-Jede Datei behandelt ein Thema. Sie erklärt nicht nur, *was* im Code steht, sondern auch *warum*, welche Fehler dabei aufgetreten sind und wie du ähnliche Dinge selbst baust.
+Er ist so geschrieben, dass du ihn **für jede eigene Mod** benutzen kannst. Jedes Kapitel erklärt:
+- **was** man braucht (Java-Code und Dateien),
+- **warum** es so funktioniert,
+- welche **Fehler** typischerweise passieren,
+- und am Ende eine **Checkliste** und Ideen **zum Ausprobieren**.
+
+> **Stand:** Minecraft **26.3**, Forge **26.3-66.1.0**, GeckoLib **5.5.7**, Java **25**. In neueren Versionen können sich Namen ändern. Das Vorgehen bleibt meist gleich – im Zweifel im Minecraft-Code nachschauen (siehe [12](12-Werkzeuge-und-Quellen.md)).
 
 ## Inhaltsverzeichnis
 
-| Datei | Thema |
+| Kapitel | Thema |
 |---|---|
-| [01 – Einrichtung und Grundlagen](01-Einrichtung-und-Grundlagen.md) | Java 25, IntelliJ, Gradle, Starten und Debuggen, Projektaufbau, Unterschiede zu 1.16.5 |
+| [01 – Einrichtung und Grundlagen](01-Einrichtung-und-Grundlagen.md) | Java, IntelliJ, Gradle, Starten und Debuggen, Events, Projektaufbau, Unterschiede zu alten Versionen |
 | [02 – Blöcke, Items und Werkzeuge](02-Bloecke-Items-Werkzeuge.md) | Registrierung, Blöcke, Items, Werkzeug-Materialien, Essen, Kreativ-Tabs, Modelle, Texturen, Rezepte, Loot-Tables, Sprachdateien |
-| [03 – Erze und Weltgenerierung](03-Erze-und-Weltgenerierung.md) | Feature, Placed Feature, Biome Modifier, Abbau-Stufen über Tags, Drop-Mengen |
-| [04 – Rüstung](04-Ruestung.md) | Normale Rüstung (Rubin), 3D-Rüstung mit GeckoLib (Noxium), Blockbench, Set-Effekte |
-| [05 – Der Noxium-Bogen](05-Noxium-Bogen.md) | Eigene Item-Klasse, drei Pfeile, Schaden, Spann-Animation |
-| [06 – Der Drache: Entity und GeckoLib](06-Drache-Entity-GeckoLib.md) | Entity registrieren, Attribute, KI-Goals, Renderer, Modell- und Animationsdateien |
-| [07 – Der Drache: Hitboxen](07-Drache-Hitboxen.md) | Mehrteilige Hitboxen wie beim Enderdrachen, Forge-Fehler beim Schlagen und die Umgehung |
-| [08 – Der Drache: Animationen](08-Drache-Animationen.md) | Zwei Controller, Dauer- und Einmal-Animationen, Todesanimation |
-| [09 – Der Drache: Fliegen](09-Drache-Fliegen.md) | Bewegungs-„Gehirne“ tauschen, synchronisierte Daten, Flug-Goal, Speichern |
-| [10 – Der Drache: Boss-Funktionen](10-Drache-Boss.md) | Despawn verhindern, Bossbar, eigene Bossbar-Textur, Lebens-Grenze 1024 |
-| [11 – Fehler und Lösungen](11-Fehler-und-Loesungen.md) | Alle Fehler aus dem Projekt mit Ursache und Lösung, plus offene Punkte |
-| [12 – Werkzeuge und Quellen](12-Werkzeuge-und-Quellen.md) | Blockbench, GeckoLib-Plugin, IntelliJ-Tricks, Webseiten zum Lernen |
+| [03 – Erze und Weltgenerierung](03-Erze-und-Weltgenerierung.md) | Erze in der Welt verteilen, Abbau-Stufen über Tags, Drops |
+| [04 – Rüstung](04-Ruestung.md) | Normale Rüstung, 3D-Rüstung mit GeckoLib, Blockbench, Set-Effekte |
+| [05 – Eigene Item-Klassen](05-Eigene-Item-Klassen.md) | Vanilla-Verhalten überschreiben am Beispiel eines Bogens mit drei Pfeilen |
+| [06 – Eigener Mob mit GeckoLib](06-Eigener-Mob-mit-GeckoLib.md) | Entity registrieren, Attribute, KI-Goals, Renderer, Modell- und Animationsdateien |
+| [07 – Mehrteilige Hitboxen](07-Mob-Hitboxen.md) | Hitboxen wie beim Enderdrachen, Forge-Eigenheiten beim Schlagen |
+| [08 – Mob-Animationen](08-Mob-Animationen.md) | Controller, Dauer- und Einmal-Animationen, Todesanimation |
+| [09 – Fliegende Mobs](09-Mob-Fliegen.md) | Zwischen Laufen und Fliegen wechseln, synchronisierte Daten, eigenes Goal, Speichern |
+| [10 – Boss-Funktionen](10-Boss-Funktionen.md) | Despawn verhindern, Bossbar, eigene Bossbar-Textur, Lebens-Grenze |
+| [11 – Fehler und Lösungen](11-Fehler-und-Loesungen.md) | Fehlermeldungen lesen, typische Fehler mit Ursache und Lösung |
+| [12 – Werkzeuge und Quellen](12-Werkzeuge-und-Quellen.md) | IntelliJ-Tricks, Blockbench, Lern-Webseiten, Java-Begriffe |
 
-## Was die Mod enthält
+**Empfohlene Reihenfolge:** 01 → 02 → 03 → 04. Danach je nach Interesse 05 (eigene Items) oder 06–10 (Mobs, die bauen aufeinander auf). 11 und 12 sind zum Nachschlagen.
 
-| Bereich | Inhalt |
-|---|---|
-| **Rubin** | Rubin, Rubinblock, Rubinapfel, Rubinerz (Stein und Tiefenschiefer), 5 Werkzeuge, 4 Rüstungsteile |
-| **Noxium** | Barren, Nugget, Block, Erz (Stein und Tiefenschiefer), 5 Werkzeuge, Bogen mit drei Pfeilen, 3D-Rüstung mit Set-Effekten |
-| **Eis** | 5 Werkzeuge |
-| **Sumpf (Bogged)** | 5 Werkzeuge |
-| **Ominus / Demon Soul Fire** | Texturen sind vorbereitet, Code fehlt noch |
-| **Ulyssan-Drache** | Boss-Mob mit GeckoLib-Modell, 57 Animationen, mehrteiligen Hitboxen, Flug-KI und eigener Bossbar |
+## Platzhalter in diesem Leitfaden
 
-## Technische Eckdaten
+Alle Beispiele benutzen eine erfundene Mod. Ersetze die Namen durch deine eigenen:
 
-| Was | Version |
-|---|---|
-| Minecraft | 26.3 |
-| Forge | 26.3-66.1.0 |
-| ForgeGradle | 7 |
-| Gradle | 9.7.1 |
-| Java | 25 |
-| GeckoLib | 5.5.7 (`com.geckolib:geckolib-forge-26.3:5.5.7`) |
-| Mod-ID | `rubymod` |
-| Paket | `com.darkwixxard.rubymod` |
+| Platzhalter | Bedeutung | in deiner Mod z. B. |
+|---|---|---|
+| `mymod` | Mod-ID (nur Kleinbuchstaben, Zahlen, `_`) | `magicmod` |
+| `MyMod` / `MyMod.MODID` | Hauptklasse der Mod / ihre ID-Konstante | `MagicMod` |
+| `com.example.mymod` | Java-Paket | `com.deinname.magicmod` |
+| `sapphire`, `sapphire_ore`, `sapphire_block` | Beispiel-Material | `ruby`, `mithril` … |
+| `crystal_armor` / `CrystalArmorItem` | Beispiel für 3D-Rüstung | – |
+| `triple_bow` / `TripleShotBowItem` | Beispiel für eine eigene Item-Klasse | – |
+| `wyvern` / `WyvernEntity` | Beispiel-Mob (fliegender Boss) | – |
 
-## Aufbau des Codes
+**Regeln für IDs:** Mod-ID und alle Registry-Namen (`sapphire_ore`) nur **klein**, keine Leerzeichen, keine Umlaute. Dasselbe gilt für alle Dateinamen in `resources`.
+
+## Aufbau einer typischen Mod
 
 ```
-src/main/java/com/darkwixxard/rubymod/
-├── RubyMod.java                      ← Einstiegspunkt der Mod
-├── block/ModBlocks.java              ← alle Blöcke
+src/main/java/com/example/mymod/
+├── MyMod.java                       ← Einstiegspunkt der Mod
+├── block/
+│   ├── ModBlocks.java               ← alle Blöcke registrieren
+│   └── custom/                      ← Blöcke mit eigenem Verhalten
 ├── item/
-│   ├── ModItems.java                 ← alle Items
-│   └── custom/
-│       ├── NoxiumArmorItem.java      ← 3D-Rüstung + Set-Effekte
-│       └── NoxiumBowItem.java        ← Bogen mit 3 Pfeilen
-├── materials/ModMaterials.java       ← Werkzeug- und Rüstungsmaterialien
-├── tags/ModTags.java                 ← eigene Item-Tags
-├── food/ModFoodProperties.java       ← Nahrungswerte
-├── creativemodetab/ModCreativeTabs.java
+│   ├── ModItems.java                ← alle Items registrieren
+│   ├── ModCreativeTabs.java
+│   └── custom/                      ← Items mit eigenem Verhalten (TripleShotBowItem …)
+├── materials/ModMaterials.java      ← Werkzeug- und Rüstungsmaterialien
+├── tags/ModTags.java                ← eigene Tags
 └── entity/
-    ├── ModEntities.java              ← Entity-Registrierung
-    ├── custom/
-    │   ├── UlyssanDragonEntity.java  ← der Drache (KI, Fliegen, Bossbar …)
-    │   └── UlyssanDragonPart.java    ← eine Hitbox des Drachen
-    └── client/                       ← läuft nur beim Spieler, nicht auf dem Server
-        ├── ModClientEvents.java      ← Renderer registrieren, Schläge umleiten
-        ├── UlyssanDragonRenderer.java
-        └── UlyssanBossBar.java       ← eigene Bossbar-Textur
+    ├── ModEntities.java             ← Mobs registrieren
+    ├── custom/                      ← Mob-Klassen (WyvernEntity …)
+    └── client/                      ← nur beim Spieler: Renderer, HUD
 ```
 
 ```
 src/main/resources/
-├── META-INF/mods.toml                ← Mod-Beschreibung für Forge
+├── META-INF/mods.toml               ← Mod-Beschreibung für Forge
 ├── pack.mcmeta
-├── assets/rubymod/                   ← alles, was man SIEHT oder HÖRT (Client)
+├── assets/mymod/                    ← alles, was man SIEHT oder HÖRT (Client)
 │   ├── blockstates/  items/  models/block/  models/item/
 │   ├── textures/block/  textures/item/  textures/entity/  textures/gui/
-│   ├── equipment/                    ← wie Rüstung am Körper aussieht
+│   ├── equipment/                   ← wie Rüstung am Körper aussieht
 │   ├── geckolib/models/  geckolib/animations/
 │   └── lang/en_us.json  lang/de_de.json
-└── data/                             ← alles, was das Spiel REGELT (Server)
-    ├── rubymod/recipe/  loot_table/  tags/item/  worldgen/  forge/biome_modifier/
-    └── minecraft/tags/               ← Einträge in Vanilla-Tags (Abbau-Werkzeuge usw.)
+└── data/                            ← alles, was das Spiel REGELT (Server)
+    ├── mymod/recipe/  loot_table/  tags/  worldgen/  forge/biome_modifier/
+    └── minecraft/tags/              ← Einträge in Vanilla-Tags
 ```
 
-**Faustregel:** `assets` ist für den Client (Aussehen), `data` ist für den Server (Regeln). Ein Server ohne Grafik braucht `assets` nicht, ein Spieler ohne `data` könnte keine Rezepte benutzen.
+**Faustregel:** `assets` = Aussehen (Client), `data` = Regeln (Server). Ein Server ohne Grafik braucht `assets` nicht, ein Spiel ohne `data` hätte keine Rezepte.
+
+## Client und Server
+
+Minecraft läuft **immer** in zwei Hälften, auch im Einzelspieler:
+
+| | Server | Client |
+|---|---|---|
+| Aufgabe | entscheidet alles: Leben, Schaden, KI, Positionen, Drops | zeigt an: Modelle, Animationen, HUD, Sounds; nimmt Eingaben an |
+| Typische Methoden | `hurtServer`, `customServerAiStep`, `doHurtTarget` | Renderer, `EntityRenderersEvent`, HUD-Events |
+| Erkennen im Code | `!level.isClientSide()` | `level.isClientSide()` |
+
+Code, der Grafik oder Tastatur benutzt, darf **nur** auf dem Client laufen (Klassen mit `@Mod.EventBusSubscriber(value = Dist.CLIENT)`), sonst stürzt ein Server ab.
