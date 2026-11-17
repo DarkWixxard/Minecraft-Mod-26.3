@@ -26,8 +26,21 @@ Er ist so geschrieben, dass du ihn **für jede eigene Mod** benutzen kannst. Jed
 | [10 – Boss-Funktionen](10-Boss-Funktionen.md) | Despawn verhindern, Bossbar, eigene Bossbar-Textur, Lebens-Grenze |
 | [11 – Fehler und Lösungen](11-Fehler-und-Loesungen.md) | Fehlermeldungen lesen, typische Fehler mit Ursache und Lösung |
 | [12 – Werkzeuge und Quellen](12-Werkzeuge-und-Quellen.md) | IntelliJ-Tricks, Blockbench, Lern-Webseiten, Java-Begriffe |
+| [13 – Befehle](13-Befehle.md) | eigene `/befehle` mit Argumenten und Berechtigungen |
+| [14 – Eigene Block-Klassen](14-Eigene-Block-Klassen.md) | Blockstates, Rechtsklick, Drauftreten, Licht je nach Zustand |
+| [15 – Spiel-Events](15-Spiel-Events.md) | auf Login, Abbauen, Drops, Ticks reagieren |
+| [16 – Effekte und Tränke](16-Effekte-und-Traenke.md) | eigene Statuseffekte, Tränke, Brau-Rezepte |
+| [17 – Sounds](17-Sounds.md) | eigene Geräusche registrieren und abspielen |
+| [18 – Tasten und Netzwerk](18-Tasten-und-Netzwerk.md) | eigene Tastenbelegung, Pakete zwischen Client und Server |
+| [19 – Konfiguration](19-Konfiguration.md) | Einstellungsdatei für Spieler und Server-Admins |
+| [20 – Spawn-Eier und Spawnen](20-Spawn-Eier-und-Spawnen.md) | Spawn-Eier, Mobs natürlich in Biomen spawnen lassen |
+| [21 – Verzauberungen](21-Verzauberungen.md) | datengetriebene Verzauberungen mit eigenen Wirkungen |
 
-**Empfohlene Reihenfolge:** 01 → 02 → 03 → 04. Danach je nach Interesse 05 (eigene Items) oder 06–10 (Mobs, die bauen aufeinander auf). 11 und 12 sind zum Nachschlagen.
+**Empfohlene Reihenfolge:** 01 → 02 → 03 → 04. Danach je nach Interesse 05 (eigene Items) oder 06–10 (Mobs, die bauen aufeinander auf). 13–21 sind einzelne Themen, die man in beliebiger Reihenfolge lesen kann (Querverweise stehen jeweils dabei). 11 und 12 sind zum Nachschlagen.
+
+## Wie die Beispiele geprüft sind
+
+Jedes Kapitel ab 13 sagt oben, **was** getestet wurde (✅). Der Java-Code wurde gegen Forge 26.3-66.1.0 kompiliert, JSON-Formate wurden mit den Vanilla-Dateien von 26.3 verglichen und auf einem Testserver geladen. Was einen echten Spieler braucht (Tastendruck, Klang, Rechtsklick), ist nur kompiliert – das steht dann ausdrücklich dabei. Was beim Prüfen schiefging und was man daraus lernt, steht in [11 – Abschnitt 8](11-Fehler-und-Loesungen.md#8-lehren-aus-der-entstehung-dieses-leitfadens).
 
 ## Platzhalter in diesem Leitfaden
 

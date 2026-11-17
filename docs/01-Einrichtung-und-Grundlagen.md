@@ -263,6 +263,13 @@ BLOCKS.register("sapphire_block", () -> new Block(BlockBehaviour.Properties.of()
 | `CompoundNBT` beim Speichern | `ValueInput` / `ValueOutput` |
 | `hurt(...)` | `hurtServer(ServerLevel, DamageSource, float)` |
 | `MobEffects.DAMAGE_BOOST`, `MOVEMENT_SPEED` | `MobEffects.STRENGTH`, `SPEED` |
+| `EntityType.ZOMBIE` | `EntityTypes.ZOMBIE` |
+| `level.random` | `level.getRandom()` |
+| `entity.hurtMarked = true` | `entity.needsSync = true` |
+| `.requires(source -> source.hasPermission(2))` | `.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))` |
+| Brau-Rezepte in Java (`PotionBrewing`) | JSON-Rezepte `"type": "minecraft:brewing"` |
+| Verzauberungen als Java-Klasse | JSON in `data/<modid>/enchantment/` |
+| Spawn-Eier mit zwei Farben | eigene Textur, `Item.Properties.spawnEgg(type)` |
 
 ## Checkliste: neues Projekt
 

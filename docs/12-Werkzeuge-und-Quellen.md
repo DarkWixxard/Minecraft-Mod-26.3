@@ -121,9 +121,7 @@ Themen, die in diesem Leitfaden nicht vorkommen, aber gut als Nächstes passen:
 | Datengenerierung (JSON-Dateien per Code erzeugen statt von Hand) | `runData`, `DataGenerator`, `RecipeProvider`, `LootTableProvider` |
 | Block-Entities (Blöcke mit Inventar/Logik, z. B. eigener Ofen) | `BlockEntity`, `BlockEntityType`, `MenuType` |
 | Eigene Menüs/GUIs | `AbstractContainerMenu`, `AbstractContainerScreen` |
-| Eigene Verzauberungen | `data/<modid>/enchantment/` (seit 1.21 datengetrieben) |
-| Eigene Effekte | `MobEffect`, Registry `MOB_EFFECTS` |
-| Sounds | `SoundEvent`, `sounds.json` |
-| Netzwerk (eigene Pakete Client ↔ Server) | `SimpleChannel` / Forge Networking |
-| Konfigurationsdatei | `ForgeConfigSpec` |
-| Natürliches Spawnen von Mobs | Biome Modifier `forge:add_spawns`, `SpawnPlacements` |
+| Eigene Loot-Änderungen ohne Tabelle zu ersetzen | Global Loot Modifier (`IGlobalLootModifier`) |
+| Strukturen (Häuser, Dungeons) | `data/<modid>/worldgen/structure/`, Jigsaw, Blockbench/Structure-Blöcke |
+| Eigene Dimension | `data/<modid>/dimension/`, `dimension_type/` |
+| Advancements (Fortschritte) | `data/<modid>/advancement/` |

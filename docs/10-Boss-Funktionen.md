@@ -12,7 +12,7 @@ Für Mobs der Kategorie `MONSTER` gelten diese Regeln (`Mob.checkDespawn()`):
 |---|---|
 | nächster Spieler weiter als **128 Blöcke** | sofort gelöscht |
 | Spieler weiter als **32 Blöcke** und der Mob hatte 30 s nichts zu tun | zufällig gelöscht (im Schnitt nach ~40 s) |
-| Schwierigkeit **Friedlich** | alle Monster sofort gelöscht |
+| Schwierigkeit **Friedlich** | gelöscht, **wenn** der EntityType mit `.notInPeaceful()` gebaut wurde (alle Vanilla-Monster) |
 
 Fliegende oder weit herumlaufende Mobs sind schnell über 32 Blöcke weg.
 
@@ -29,7 +29,7 @@ public boolean removeWhenFarAway(double distanceSquared) {
 Minecraft fragt diese Methode bei jedem Despawn-Check. `false` = bleibt und wird mit der Welt gespeichert (Wither und Enderdrache machen es genauso).
 
 - Nur für einzelne Mobs: `/summon mymod:wyvern ~ ~ ~ {PersistenceRequired:1b}` oder ein Namensschild.
-- Auf **Friedlich** wird er trotzdem gelöscht. Wer das nicht will: `.allowedInPeaceful()` am `EntityType.Builder`. Bei Bossen lässt man das meist weg.
+- **Friedlich:** Ein eigener EntityType ist standardmäßig auch auf Friedlich erlaubt. Soll er dort wie Vanilla-Monster verschwinden, `.notInPeaceful()` an den `EntityType.Builder` hängen.
 
 ## 2. Die Bossbar
 

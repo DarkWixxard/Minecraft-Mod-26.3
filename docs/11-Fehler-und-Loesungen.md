@@ -85,6 +85,12 @@
 | Zustand nach Neuladen weg | nicht gespeichert | `addAdditionalSaveData` / `readAdditionalSaveData` |
 | Bossbar bewegt sich nicht | `setProgress` nicht jeden Tick (z. B. in einem `if`) | direkt unter `super.customServerAiStep(level)` |
 | Absturz beim Abbrechen des Bossbar-Events | Forge-Eigenheit (NullPointerException) | nicht abbrechen, eigene HUD-Ebene ([10](10-Boss-Funktionen.md#3-eigene-bossbar-textur)) |
+| Welt startet nicht: *„Failed to load registries due to errors“* | fehlerhafte Datei in einer Welt-Registry (Verzauberung, Biom, Dimension …), oft ein falscher Tag | Zeile darunter im Log nennt Datei und Grund ([21](21-Verzauberungen.md#3-die-item-tags-müssen-stimmen)) |
+| `/mymod` → *„Unknown or incomplete command“* | Ast ohne `executes` oder Klasse nicht angemeldet | [13](13-Befehle.md) |
+| Taste erscheint nicht in den Optionen | nicht über `RegisterKeyMappingsEvent` registriert oder Klasse ohne `Dist.CLIENT` | [18](18-Tasten-und-Netzwerk.md) |
+| Aktion per Taste wirkt nur kurz / springt zurück | nur auf dem Client ausgeführt | Paket an den Server schicken ([18](18-Tasten-und-Netzwerk.md)) |
+| Konfigurationswert „noch nicht geladen“ | `.get()` zu früh (in `static`-Feld oder bei der Registrierung) | erst zur Laufzeit lesen ([19](19-Konfiguration.md)) |
+| Kein Ton | Name in `sounds.json` passt nicht, Datei kein `.ogg`, Log: *„Unable to play unknown soundEvent“* | [17](17-Sounds.md) |
 
 ## 7. Allgemeine Strategie bei Fehlern
 
@@ -95,3 +101,26 @@
 5. **Debugger** mit Breakpoint ([01](01-Einrichtung-und-Grundlagen.md#über-eine-run-configuration-mit-debugger)).
 6. **Vanilla vergleichen:** Wie macht Mojang dasselbe?
 7. **Oft committen** – dann kannst du jederzeit zum letzten funktionierenden Stand zurück.
+
+## 8. Lehren aus der Entstehung dieses Leitfadens
+
+Beim Schreiben dieses Leitfadens sind selbst Fehler passiert. Erst durch Kompilieren und Testen auf einem Server sind sie aufgefallen. Genau diese Fehler passieren beim Modding ständig, deshalb stehen sie hier.
+
+| Was schiefging | Wie es auffiel | Lehre |
+|---|---|---|
+| Ein Verzauberungs-Tag `#minecraft:enchantable/sword` wurde „aus dem Gedächtnis“ benutzt – den gibt es nicht (richtig: `sharp_weapon` / `melee_weapon`). | Die Testwelt ließ sich nicht starten: *„Failed to load registries … Missing tag“*. | Namen von Tags, Dateien und IDs **nachschauen**, nie raten. Die echten Dateien liegen in der Minecraft-Bibliothek. |
+| Forges Code-Kommentar zu `forge:add_spawns` zeigt `minCount`/`maxCount`. In 26.3 heißt es `count`. | Vergleich mit Vanillas `plains.json` und Test mit einem Debug-Befehl | Kommentare und Wikis können veraltet sein. **Der Code und die Vanilla-Dateien gelten.** |
+| `level.random` und `player.hurtMarked` aus älteren Versionen benutzt | Compiler: *„random has protected access“*, *„cannot find symbol“* | Mojang benennt zwischen Versionen um. Bei „cannot find symbol“: Strg + Klick auf die Klasse und nach ähnlichen Namen suchen. |
+| `org.lwjgl.glfw.GLFW` für Tasten-Codes benutzt | *„package org.lwjgl.glfw does not exist“* | Nicht jede Bibliothek, die Minecraft benutzt, steht dir beim Kompilieren zur Verfügung. Die Minecraft-eigene Klasse nehmen (`InputConstants`). |
+| Behauptet, Mod-Mobs verschwinden auf „Friedlich“ automatisch. Gesagt wurde außerdem `.allowedInPeaceful()` – die Methode heißt `notInPeaceful()`, und der Standard ist umgekehrt. | Nachlesen in `EntityType.Builder` | Wie sich etwas **standardmäßig** verhält, steht im Code (Feld-Startwerte). Annahmen prüfen. |
+| Trampolin-Beispiel mit einer Methode, die es in 26.3 nicht mehr gibt | Compiler: *„method does not override … supertype“* | `@Override` immer benutzen – dann sagt der Compiler sofort Bescheid. Und: im aktuellen Vanilla-Vorbild nachsehen (hier `Blocks.SLIME_BLOCK` → `.bounceRestitution(1.0F)`). |
+| Ein Kommentar in der Konfiguration sprach von „Saphir“, der Code droppt Smaragde | Beim Lesen der erzeugten Datei | Kommentare beim Ändern des Codes mit ändern. |
+
+### Der Ablauf, der diese Fehler gefunden hat
+
+1. **Kompilieren** (`gradlew compileJava`) – findet falsche Namen und Signaturen.
+2. **Server starten** und das Log nach `ERROR` und der Mod-ID durchsuchen – findet kaputte JSON-Dateien, fehlende Tags und Registrierungsfehler.
+3. **Mit Befehlen testen** (`/setblock`, `/effect`, `/summon`, eigene Debug-Befehle) – zeigt, ob es wirklich funktioniert.
+4. **Im echten Spiel** testen, was einen Spieler braucht (Tasten, Klicks, Sounds, Aussehen).
+
+Je früher eine Stufe einen Fehler findet, desto billiger ist er. Deshalb jede Stufe ausführen, bevor man weiterbaut.
