@@ -115,6 +115,8 @@ Beim Schreiben dieses Leitfadens sind selbst Fehler passiert. Erst durch Kompili
 | Behauptet, Mod-Mobs verschwinden auf „Friedlich“ automatisch. Gesagt wurde außerdem `.allowedInPeaceful()` – die Methode heißt `notInPeaceful()`, und der Standard ist umgekehrt. | Nachlesen in `EntityType.Builder` | Wie sich etwas **standardmäßig** verhält, steht im Code (Feld-Startwerte). Annahmen prüfen. |
 | Trampolin-Beispiel mit einer Methode, die es in 26.3 nicht mehr gibt | Compiler: *„method does not override … supertype“* | `@Override` immer benutzen – dann sagt der Compiler sofort Bescheid. Und: im aktuellen Vanilla-Vorbild nachsehen (hier `Blocks.SLIME_BLOCK` → `.bounceRestitution(1.0F)`). |
 | Ein Kommentar in der Konfiguration sprach von „Saphir“, der Code droppt Smaragde | Beim Lesen der erzeugten Datei | Kommentare beim Ändern des Codes mit ändern. |
+| `displayClientMessage(text, true)` benutzt – heißt in 26.3 `sendOverlayMessage(text)` | Compiler: *„cannot find symbol“* | Siehe oben: Namen ändern sich; im Zweifel in der Klasse (`Player`) nach ähnlichen Methoden suchen. |
+| Einzeiler-Lambda an ein abbrechbares Event gehängt und einen Monitor-Listener mit Priorität angemeldet | Compiler: *„reference to addListener is ambiguous“*, *„no suitable method found“* | Bei Überladungen (mehrere Methoden gleichen Namens) entscheidet der Compiler anhand der Lambda-Form. `{ … }` macht es eindeutig ([23](23-Events.md#6-reihenfolge-priorität-und-monitor)). |
 
 ### Der Ablauf, der diese Fehler gefunden hat
 
