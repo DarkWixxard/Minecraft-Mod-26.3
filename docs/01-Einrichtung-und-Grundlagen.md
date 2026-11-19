@@ -195,6 +195,7 @@ public final class ModClientEvents {
 - `@SubscribeEvent` wirkt nur in Klassen mit `@Mod.EventBusSubscriber`. Die Methoden müssen `static` sein.
 - Bei **abbrechbaren** Events gibt die Methode `boolean` zurück: `true` = abbrechen.
 - `value = Dist.CLIENT` = Klasse wird nur beim Spieler geladen. Alles mit Rendering, HUD oder Tastatur gehört dorthin.
+- Was ein Handler genau ist und wann man welchen Weg nimmt: [22 – Handler](22-Handler.md).
 - Welche Events es gibt: in IntelliJ im Paket `net.minecraftforge.event` (Server/beide) und `net.minecraftforge.client.event` (nur Client) stöbern.
 
 ## 8. Pakete (Ordner) sauber organisieren

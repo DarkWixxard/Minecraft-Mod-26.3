@@ -35,6 +35,7 @@ Er ist so geschrieben, dass du ihn **für jede eigene Mod** benutzen kannst. Jed
 | [19 – Konfiguration](19-Konfiguration.md) | Einstellungsdatei für Spieler und Server-Admins |
 | [20 – Spawn-Eier und Spawnen](20-Spawn-Eier-und-Spawnen.md) | Spawn-Eier, Mobs natürlich in Biomen spawnen lassen |
 | [21 – Verzauberungen](21-Verzauberungen.md) | datengetriebene Verzauberungen mit eigenen Wirkungen |
+| [22 – Handler](22-Handler.md) | was ein Handler ist, Event- und Packet-Handler, wo und wie man sie anmeldet |
 
 **Empfohlene Reihenfolge:** 01 → 02 → 03 → 04. Danach je nach Interesse 05 (eigene Items) oder 06–10 (Mobs, die bauen aufeinander auf). 13–21 sind einzelne Themen, die man in beliebiger Reihenfolge lesen kann (Querverweise stehen jeweils dabei). 11 und 12 sind zum Nachschlagen.
 
