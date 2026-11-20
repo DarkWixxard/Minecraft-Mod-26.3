@@ -28,7 +28,7 @@ Der Handler bekommt dabei fast immer ein **Objekt mit Informationen** als Parame
 
 ## 3. Event-Handler
 
-Der wichtigste Handler-Typ. Forge feuert hunderte Events ([15](15-Spiel-Events.md)), und du hängst Handler daran. Was ein Event selbst ist und wie es durch Forge läuft: [23 – Events](23-Events.md).
+Der wichtigste Handler-Typ. Forge feuert hunderte Events ([15](15-Spiel-Events.md)), und du hängst Handler daran. Was ein Event selbst ist und wie es durch Forge läuft: [23 – Events](23-Events.md). Mehr zu Listenern (Objekte mit Zustand, an-/abschalten, Reload-Listener): [24 – Listener](24-Listener.md).
 
 ### Weg 1: von Hand anmelden mit `addListener`
 

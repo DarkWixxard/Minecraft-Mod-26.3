@@ -116,6 +116,8 @@ Beim Schreiben dieses Leitfadens sind selbst Fehler passiert. Erst durch Kompili
 | Trampolin-Beispiel mit einer Methode, die es in 26.3 nicht mehr gibt | Compiler: *„method does not override … supertype“* | `@Override` immer benutzen – dann sagt der Compiler sofort Bescheid. Und: im aktuellen Vanilla-Vorbild nachsehen (hier `Blocks.SLIME_BLOCK` → `.bounceRestitution(1.0F)`). |
 | Ein Kommentar in der Konfiguration sprach von „Saphir“, der Code droppt Smaragde | Beim Lesen der erzeugten Datei | Kommentare beim Ändern des Codes mit ändern. |
 | `displayClientMessage(text, true)` benutzt – heißt in 26.3 `sendOverlayMessage(text)` | Compiler: *„cannot find symbol“* | Siehe oben: Namen ändern sich; im Zweifel in der Klasse (`Player`) nach ähnlichen Methoden suchen. |
+| Listener-Objekt mit nur **einer** `@SubscribeEvent`-Methode über `BusGroup.DEFAULT.register(...)` angemeldet | Mod startete nicht: *„Only a single listener found. You should directly call addListener()“* | Bibliotheken haben eigene Regeln, die erst zur **Laufzeit** auffallen. Darum nach dem Kompilieren immer auch starten ([24](24-Listener.md#c-ein-objekt-mit-eigenem-zustand)). |
+| Client-Event `AddClientReloadListenersEvent` genannt – heißt `RegisterClientReloadListenersEvent` | Suche nach der Datei | Auch Namen in Nebensätzen prüfen. |
 | Einzeiler-Lambda an ein abbrechbares Event gehängt und einen Monitor-Listener mit Priorität angemeldet | Compiler: *„reference to addListener is ambiguous“*, *„no suitable method found“* | Bei Überladungen (mehrere Methoden gleichen Namens) entscheidet der Compiler anhand der Lambda-Form. `{ … }` macht es eindeutig ([23](23-Events.md#6-reihenfolge-priorität-und-monitor)). |
 
 ### Der Ablauf, der diese Fehler gefunden hat
