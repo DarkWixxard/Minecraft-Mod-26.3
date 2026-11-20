@@ -38,6 +38,12 @@ Er ist so geschrieben, dass du ihn **für jede eigene Mod** benutzen kannst. Jed
 | [22 – Handler](22-Handler.md) | was ein Handler ist, Event- und Packet-Handler, wo und wie man sie anmeldet |
 | [23 – Events](23-Events.md) | was ein Event ist, die drei Gruppen, lesen/ändern/abbrechen, Priorität, eigene Events |
 | [24 – Listener](24-Listener.md) | Listener-Formen, Listener-Objekte mit Zustand, an-/abschalten, Reload-Listener für eigene Datendateien |
+| [25 – `@Override`](25-Override.md) | Methoden überschreiben, Regeln, `super`, alle Fehlermeldungen auf Deutsch |
+| [26 – `@SubscribeEvent`](26-SubscribeEvent.md) | erlaubte Formen, `priority`, `alwaysCancelling`, Fehler beim Kompilieren und Starten |
+| [27 – `EventBus`](27-EventBus.md) | das Feld `BUS`, alle Methoden, Busse für eigene Events |
+| [28 – `CancellableEventBus`](28-CancellableEventBus.md) | abbrechbare Events, vier Listener-Formen, was nach dem Abbrechen passiert |
+| [29 – `BusGroup`](29-BusGroup.md) | Default- und Mod-Gruppe, `getModBusGroup()`, `register`/`unregister` |
+| [30 – `@Mod.EventBusSubscriber`](30-EventBusSubscriber.md) | automatische Anmeldung, `modid`, `value = Dist.CLIENT`, `bus` |
 
 **Empfohlene Reihenfolge:** 01 → 02 → 03 → 04. Danach je nach Interesse 05 (eigene Items) oder 06–10 (Mobs, die bauen aufeinander auf). 13–21 sind einzelne Themen, die man in beliebiger Reihenfolge lesen kann (Querverweise stehen jeweils dabei). 11 und 12 sind zum Nachschlagen.
 
