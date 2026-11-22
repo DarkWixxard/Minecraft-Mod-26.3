@@ -24,6 +24,8 @@ public final class ModClientEvents {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.ULYSSAN_DRAGON.get(),
                 UlyssanDragonRenderer::new);
+        event.registerEntityRenderer(ModEntities.ICE_ARROW.get(),
+                IceArrowRenderer::new);
     }
 
     @SubscribeEvent

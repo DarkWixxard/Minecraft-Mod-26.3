@@ -43,11 +43,13 @@ public final class ModCreativeTabs {
             .displayItems((params, output) -> {
                 output.accept(Items.ICE);
                 output.accept(Items.PACKED_ICE);
+                output.accept(Items.BLUE_ICE);
                 output.accept(ModItems.ICE_SWORD.get());
                 output.accept(ModItems.ICE_PICKAXE.get());
                 output.accept(ModItems.ICE_AXE.get());
                 output.accept(ModItems.ICE_SHOVEL.get());
                 output.accept(ModItems.ICE_HOE.get());
+                output.accept(ModItems.ICEARROW.get());
             })
         .build());
 
@@ -57,6 +59,10 @@ public final class ModCreativeTabs {
             .icon(() -> Items.RED_MUSHROOM.getDefaultInstance())
             .displayItems((params, output) -> {
                 output.accept(Items.RED_MUSHROOM);
+                output.accept(Items.BROWN_MUSHROOM);
+                output.accept(Items.RED_MUSHROOM_BLOCK);
+                output.accept(Items.BROWN_MUSHROOM_BLOCK);
+                output.accept(Items.VINE);
                 output.accept(ModItems.BOGGED_SWORD.get());
                 output.accept(ModItems.BOGGED_PICKAXE.get());
                 output.accept(ModItems.BOGGED_AXE.get());

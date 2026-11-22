@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "key": {
+    "X": "minecraft:ice",
+    "#": "minecraft:arrow"
+  },
+  "result": {
+    "id": "rubymod:ice_arrow"
+  }
+}
