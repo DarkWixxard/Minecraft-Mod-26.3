@@ -29,5 +29,8 @@
 	"item.rubymod.bogged_hoe": "Sumpfhacke",
 	"itemGroup.rubymod.bogged_tab": "Sumpf-Mod",
 
-	"bossbar.rubymod.ulyssan_dragon": "Ulyssan, der Frostdrache"
+	"bossbar.rubymod.ulyssan_dragon": "Ulyssan, der Frostdrache",
+
+	"key.rubymod.mist_step": "Nebelschritt",
+	"key.category.rubymod.abilities": "Rubin-Mod: Fähigkeiten"
 }
