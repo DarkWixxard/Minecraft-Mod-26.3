@@ -1,12 +1,15 @@
 package com.darkwixxard.rubymod;
 
+import com.darkwixxard.rubymod.ability.MistStep;
 import com.darkwixxard.rubymod.block.ModBlocks;
 import com.darkwixxard.rubymod.creativemodetab.ModCreativeTabs;
 import com.darkwixxard.rubymod.entity.ModEntities;
 import com.darkwixxard.rubymod.entity.custom.UlyssanDragonEntity;
 import com.darkwixxard.rubymod.item.ModItems;
+import com.darkwixxard.rubymod.network.ModNetworking;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -30,6 +33,10 @@ public final class RubyMod {
         ModEntities.ENTITY_TYPES.register(modBusGroup);
         EntityAttributeCreationEvent.BUS.addListener(RubyMod::registerAttributes);
 
+
+        // Mist Step: network packet (key press -> server) + cleanup on logout
+        ModNetworking.register();
+        PlayerEvent.PlayerLoggedOutEvent.BUS.addListener(event -> MistStep.forget(event.getEntity().getUUID()));
 
         FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
     }

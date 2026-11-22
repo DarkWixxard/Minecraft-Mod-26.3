@@ -13,6 +13,12 @@ Eine Forge-Mod für **Minecraft 26.3** (Forge `26.3-66.1.0`), die Rubine ins Spi
 | Rubin-Werkzeuge | `rubymod:ruby_sword`, `_pickaxe`, `_axe`, `_shovel`, `_hoe` | Zwischen Eisen und Diamant: 1200 Haltbarkeit, Abbaugeschwindigkeit 8,5, verzauberbar |
 | Rubin-Rüstung | `rubymod:ruby_helmet`, `_chestplate`, `_leggings`, `_boots` | 19 Rüstungspunkte (Eisen 15, Diamant 20), Härte 1, mit Rubinen reparierbar |
 
+### Fähigkeiten
+
+| Fähigkeit | Taste | Beschreibung |
+|---|---|---|
+| Nebelschritt (Mist Step) | `V` (in *Optionen → Steuerung* änderbar) | Der Spieler löst sich in Nebel auf und schnellt bis zu 8 Blöcke in Blickrichtung nach vorn. Hinterlässt eine Nebelspur mit geisterhaften Nachbildern. Kleine Stufen (1 Block) werden mitgenommen, an Wänden stoppt der Dash. Abklingzeit 1,5 Sekunden. |
+
 Alles erscheint im eigenen Kreativ-Tab **„Rubin-Mod“** und zusätzlich in den passenden Vanilla-Tabs.
 
 ### Rezepte

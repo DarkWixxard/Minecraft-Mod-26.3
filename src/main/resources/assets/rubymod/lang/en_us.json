@@ -46,5 +46,8 @@
 	"item.rubymod.noxium_boots": "Noxium Boots",
 	"itemGroup.rubymod.noxium_tab": "Noxium Mod",
 
-	"bossbar.rubymod.ulyssan_dragon": "Ulyssan, the Frost Dragon"
+	"bossbar.rubymod.ulyssan_dragon": "Ulyssan, the Frost Dragon",
+
+	"key.rubymod.mist_step": "Mist Step",
+	"key.category.rubymod.abilities": "Ruby Mod: Abilities"
 }
