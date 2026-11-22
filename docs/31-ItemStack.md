@@ -250,11 +250,125 @@ if (!stack.isEmpty()) {                  // Rest passte nicht mehr ins Inventar
 
 Immer auf dem **Server** ausführen (`!level.isClientSide()`), sonst taucht das Item nur scheinbar auf.
 
-## 9. Typische Fehler
+## 9. ItemStack als Rückgabewert: überschriebene Methoden
+
+Oft **erzeugst** du einen ItemStack nicht selbst, um ihn irgendwohin zu legen, sondern Minecraft **fragt** deine Klasse: *„Welcher ItemStack gehört hierhin?“* Dann überschreibst du ([25](25-Override.md)) eine Methode, die einen `ItemStack` **zurückgibt**.
+
+### Beispiel: ein eigener Pfeil – `getDefaultPickupItem()`
+
+Wenn ein Spieler einen steckenden Pfeil aufhebt, fragt Minecraft den Pfeil: *Welches Item bekommt der Spieler?* Die Antwort liefert `getDefaultPickupItem()`.
+
+```java
+// Ein Pfeil, der Getroffene verlangsamt. Beim Aufheben gibt er einen Eis-Pfeil zurück.
+public class IceArrowEntity extends AbstractArrow {
+    // für EntityType.Builder.of(IceArrowEntity::new, ...)
+    public IceArrowEntity(EntityType<? extends IceArrowEntity> type, Level level) {
+        super(type, level);
+    }
+
+    // wenn ein Bogen/Werfer ihn verschießt
+    public IceArrowEntity(Level level, LivingEntity shooter, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+        super(ModEntities.ICE_ARROW.get(), shooter, level, pickupItemStack, firedFromWeapon);
+    }
+
+    // Welches Item bekommt man beim Aufheben (wenn nichts anderes gespeichert ist)?
+    @Override
+    protected ItemStack getDefaultPickupItem() {
+        return new ItemStack(ModItems.ICE_ARROW.get());
+    }
+
+    // Zusatz-Effekt, wenn der Pfeil ein Lebewesen trifft
+    @Override
+    protected void doPostHurtEffects(LivingEntity target) {
+        super.doPostHurtEffects(target);
+        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1));   // 5 s Langsamkeit II
+    }
+}
+```
+
+Test auf dem Server: Ein gespawnter Eis-Pfeil trägt als Aufhebe-Item `{count: 1, id: "rubymod:ice_arrow"}` – genau das aus `getDefaultPickupItem()`. Ein getroffenes Schwein hatte danach `minecraft:slowness` mit Stufe II.
+
+**Was hier passiert:**
+
+| Teil | Erklärung |
+|---|---|
+| `extends AbstractArrow` | erbt alles vom Vanilla-Pfeil: Flug, Steckenbleiben, Aufheben, Schaden |
+| `getDefaultPickupItem()` | ist in `AbstractArrow` **`abstract`** – jede Pfeil-Klasse **muss** sie liefern. Vergisst man sie (getestet): *„… ist nicht abstrakt und setzt die abstrakte Methode getDefaultPickupItem() in AbstractArrow nicht außer Kraft“* |
+| `protected` | so steht sie in `AbstractArrow` – gleich lassen oder `public` (nicht `private`, siehe [25](25-Override.md#zugriff-offener-ist-erlaubt)) |
+| `return new ItemStack(...)` | jedes Mal ein **neuer** Stack – nie einen gespeicherten zurückgeben, denn der Aufrufer darf ihn verändern |
+| `ModItems.ICE_ARROW.get()` | eigenes Item → `RegistryObject` → **`.get()` mit Klammern** |
+
+Vanilla macht es genauso: `Arrow` gibt `new ItemStack(Items.ARROW)` zurück, `SpectralArrow` `new ItemStack(Items.SPECTRAL_ARROW)`.
+
+> ⚠️ **Häufiger Tippfehler:** `ModItems.ICEARROW.get` (ohne Klammern). Ohne `()` sucht Java kein *Methoden-Aufruf*, sondern ein **Feld** namens `get` – und das gibt es nicht. Echte Meldung (getestet):
+> ```
+> Fehler: Symbol nicht gefunden
+>   Symbol: Variable get
+>   Ort: Variable ICE_ARROW von Typ RegistryObject<Item>
+> ```
+> („Variable get“ ist der Hinweis: Java hat `get` für eine Variable gehalten.) Richtig: **`ModItems.ICEARROW.get()`**.
+
+> ⚠️ **Falle beim Erzeugen:** `AbstractArrow` ruft `getDefaultPickupItem()` schon **in seinem eigenen Konstruktor** auf (`private ItemStack pickupItemStack = this.getDefaultPickupItem();`). In diesem Moment sind die **Felder deiner Klasse noch nicht gesetzt**. Benutze in `getDefaultPickupItem()` deshalb nur Dinge, die immer da sind (z. B. `ModItems...get()`), keine eigenen Felder des Pfeils – die wären noch `null` bzw. `0`.
+
+### Damit ein Bogen ihn verschießt: das passende Item
+
+Das Item ist ein `ArrowItem`, das sagt, **welches Entity** beim Schießen entsteht:
+
+```java
+// Das Item: sagt Bögen, welches Entity beim Schießen erzeugt wird
+public class IceArrowItem extends ArrowItem {
+    public IceArrowItem(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public AbstractArrow createArrow(Level level, ItemStack itemStack, LivingEntity owner, @Nullable ItemStack firedFromWeapon) {
+        return new IceArrowEntity(level, owner, itemStack.copyWithCount(1), firedFromWeapon);
+    }
+}
+```
+
+Registrieren:
+
+```java
+// ModItems
+public static final RegistryObject<Item> ICE_ARROW = ITEMS.register("ice_arrow",
+        () -> new IceArrowItem(new Item.Properties().setId(ITEMS.key("ice_arrow"))));
+
+// ModEntities
+public static final RegistryObject<EntityType<IceArrowEntity>> ICE_ARROW = ENTITY_TYPES.register("ice_arrow",
+        () -> EntityType.Builder.<IceArrowEntity>of(IceArrowEntity::new, MobCategory.MISC)
+                .sized(0.5F, 0.5F)
+                .clientTrackingRange(4)
+                .updateInterval(20)
+                .build(ENTITY_TYPES.key("ice_arrow")));
+```
+
+- Hier kommt der **ItemStack in die andere Richtung**: `createArrow` bekommt den Stack aus dem Inventar (`itemStack`) und gibt eine **Kopie mit Anzahl 1** an den Pfeil weiter – das ist dann das Aufhebe-Item dieses einen Pfeils. Deshalb `copyWithCount(1)`: Der Original-Stack (z. B. 64 Pfeile im Inventar) darf nicht mitwandern ([Abschnitt 5](#5-anzahl-ändern-teilen-kopieren)).
+- `getDefaultPickupItem()` ist nur der **Ersatz**, wenn kein solcher Stack gespeichert ist (z. B. bei `/summon`).
+- Damit Bögen den Pfeil als **Munition** erkennen, gehört das Item in den Vanilla-Tag `data/minecraft/tags/item/arrows.json` (`"replace": false`). Dort stehen `minecraft:arrow`, `minecraft:tipped_arrow`, `minecraft:spectral_arrow`.
+- Aussehen im Flug: einen Renderer anmelden ([06](06-Eigener-Mob-mit-GeckoLib.md#renderer-anmelden)). Vorbilder in Vanilla: `TippableArrowRenderer` und `SpectralArrowRenderer` (beide erweitern `ArrowRenderer`).
+
+> Getestet: `IceArrowEntity` und `IceArrowItem` kompilieren gegen Forge 26.3; Aufhebe-Item und Treffer-Effekt auf dem Server geprüft. Das Schießen mit einem Bogen braucht einen Spieler und ist nur kompiliert.
+
+### Weitere Methoden, die einen ItemStack zurückgeben
+
+| Methode | In | Frage, die Minecraft stellt |
+|---|---|---|
+| `getDefaultPickupItem()` | Pfeil (`AbstractArrow`) | Was bekommt man beim Aufheben? |
+| `createArrow(...)` (gibt Entity zurück, bekommt Stack) | Pfeil-Item (`ArrowItem`) | Welcher Pfeil entsteht aus diesem Stack? |
+| `getPickResult()` | jede Entity | Was gibt Mausrad-Klick (Pick Block) im Kreativmodus? Bei Mobs: das Spawn-Ei |
+| `getDefaultInstance()` | `Item` | Wie sieht ein „neuer“ Stack dieses Items aus (z. B. mit vorgegebenen Komponenten)? |
+| `finishUsingItem(...)` | `Item` | Was bleibt nach dem Benutzen übrig (z. B. leere Flasche nach dem Trinken)? |
+
+Alle folgen demselben Muster: **`@Override`, `return new ItemStack(...)`** – ein frischer Stack mit dem passenden Item.
+
+## 10. Typische Fehler
 
 | Problem | Ursache | Lösung |
 |---|---|---|
 | `new ItemStack(ModItems.RUBY)` rot | `RegistryObject` statt Item | `ModItems.RUBY.get()` |
+| `ModItems.RUBY.get` rot: *Symbol nicht gefunden – Variable get* | Klammern vergessen | `ModItems.RUBY.get()` |
 | Vergleich klappt nie | `==` oder `equals` | `is(...)`, `ItemStack.matches`, `isSameItem…` |
 | `NullPointerException` | leerer Slot mit `null` erwartet | `isEmpty()` prüfen; Minecraft liefert `ItemStack.EMPTY` |
 | Item in der Hand ändert sich mit | Stack nicht kopiert | `copy()` |
