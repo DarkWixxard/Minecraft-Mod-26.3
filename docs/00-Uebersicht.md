@@ -44,6 +44,7 @@ Er ist so geschrieben, dass du ihn **für jede eigene Mod** benutzen kannst. Jed
 | [28 – `CancellableEventBus`](28-CancellableEventBus.md) | abbrechbare Events, vier Listener-Formen, was nach dem Abbrechen passiert |
 | [29 – `BusGroup`](29-BusGroup.md) | Default- und Mod-Gruppe, `getModBusGroup()`, `register`/`unregister` |
 | [30 – `@Mod.EventBusSubscriber`](30-EventBusSubscriber.md) | automatische Anmeldung, `modid`, `value = Dist.CLIENT`, `bus` |
+| [31 – `ItemStack`](31-ItemStack.md) | Item vs. ItemStack, `Items`, erzeugen, vergleichen, kopieren, Komponenten, an Spieler/Kisten geben |
 
 **Empfohlene Reihenfolge:** 01 → 02 → 03 → 04. Danach je nach Interesse 05 (eigene Items) oder 06–10 (Mobs, die bauen aufeinander auf). 13–21 sind einzelne Themen, die man in beliebiger Reihenfolge lesen kann (Querverweise stehen jeweils dabei). 11 und 12 sind zum Nachschlagen.
 
