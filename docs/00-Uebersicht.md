@@ -46,6 +46,7 @@ Er ist so geschrieben, dass du ihn **für jede eigene Mod** benutzen kannst. Jed
 | [30 – `@Mod.EventBusSubscriber`](30-EventBusSubscriber.md) | automatische Anmeldung, `modid`, `value = Dist.CLIENT`, `bus` |
 | [31 – `ItemStack`](31-ItemStack.md) | Item vs. ItemStack, `Items`, erzeugen, vergleichen, kopieren, Komponenten, an Spieler/Kisten geben |
 | [32 – Effekte hinzufügen](32-Effekte-hinzufuegen.md) | `addEffect`, `MobEffectInstance`, Stapel-Regeln, alle 13 Stellen für Effekte mit Beispiel |
+| [33 – `extends`](33-extends.md) | Vererbung, Vererbungsketten in Minecraft, `super(...)`, `abstract`/`final`, welche Klasse man erweitert |
 
 **Empfohlene Reihenfolge:** 01 → 02 → 03 → 04. Danach je nach Interesse 05 (eigene Items) oder 06–10 (Mobs, die bauen aufeinander auf). 13–21 sind einzelne Themen, die man in beliebiger Reihenfolge lesen kann (Querverweise stehen jeweils dabei). 11 und 12 sind zum Nachschlagen.
 
