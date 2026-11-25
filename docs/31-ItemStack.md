@@ -44,20 +44,20 @@ Items.AIR            // "nichts"
 **Eigene Items** stehen nicht in `Items`, sondern in deiner `ModItems`-Klasse – als `RegistryObject`, deshalb mit `.get()`:
 
 ```java
-new ItemStack(ModItems.RUBY.get())          // eigenes Item
+new ItemStack(ModItems.SAPPHIRE.get())          // eigenes Item
 new ItemStack(Items.DIAMOND)                // Vanilla-Item
 ```
 
 ## 3. ItemStacks erzeugen
 
 ```java
-ItemStack diamond  = new ItemStack(Items.DIAMOND);             // 1 Diamant
-ItemStack emeralds = new ItemStack(Items.EMERALD, 5);          // 5 Smaragde
-ItemStack rubies   = new ItemStack(ModItems.RUBY.get(), 3);    // 3 Rubine (eigenes Item)
-ItemStack nothing  = ItemStack.EMPTY;                          // "kein Item"
+ItemStack diamond   = new ItemStack(Items.DIAMOND);             // 1 Diamant
+ItemStack emeralds  = new ItemStack(Items.EMERALD, 5);          // 5 Smaragde
+ItemStack sapphires = new ItemStack(ModItems.SAPPHIRE.get(), 3);   // 3 Saphire (eigenes Item)
+ItemStack nothing   = ItemStack.EMPTY;                          // "kein Item"
 ```
 
-Test: `diamond=1 minecraft:diamond emeralds=5 minecraft:emerald rubies=3 rubymod:ruby`
+Test: `diamond=1 minecraft:diamond emeralds=5 minecraft:emerald sapphires=3 mymod:sapphire`
 
 | Konstruktor | Bedeutung |
 |---|---|
@@ -222,11 +222,11 @@ Das sind **die echten Stacks** – Änderungen wirken sofort im Spiel. Nur lesen
 ```java
 if (level.getBlockEntity(chestPos) instanceof Container chest) {
     chest.setItem(0, sword);                                   // Slot 0
-    chest.setItem(1, new ItemStack(ModItems.RUBY.get(), 16));  // Slot 1
+    chest.setItem(1, new ItemStack(ModItems.SAPPHIRE.get(), 16));  // Slot 1
 }
 ```
 
-Test (Kiste ausgelesen): Slot 0 = das Schwert mit allen Komponenten, Slot 1 = `16 rubymod:ruby`.
+Test (Kiste ausgelesen): Slot 0 = das Schwert mit allen Komponenten, Slot 1 = `16 mymod:sapphire`.
 
 ### Auf den Boden
 
@@ -259,22 +259,22 @@ Oft **erzeugst** du einen ItemStack nicht selbst, um ihn irgendwohin zu legen, s
 Wenn ein Spieler einen steckenden Pfeil aufhebt, fragt Minecraft den Pfeil: *Welches Item bekommt der Spieler?* Die Antwort liefert `getDefaultPickupItem()`.
 
 ```java
-// Ein Pfeil, der Getroffene verlangsamt. Beim Aufheben gibt er einen Eis-Pfeil zurück.
-public class IceArrowEntity extends AbstractArrow {
-    // für EntityType.Builder.of(IceArrowEntity::new, ...)
-    public IceArrowEntity(EntityType<? extends IceArrowEntity> type, Level level) {
+// Ein Pfeil, der Getroffene verlangsamt. Beim Aufheben gibt er einen Frost-Pfeil zurück.
+public class FrostArrowEntity extends AbstractArrow {
+    // für EntityType.Builder.of(FrostArrowEntity::new, ...)
+    public FrostArrowEntity(EntityType<? extends FrostArrowEntity> type, Level level) {
         super(type, level);
     }
 
     // wenn ein Bogen/Werfer ihn verschießt
-    public IceArrowEntity(Level level, LivingEntity shooter, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
-        super(ModEntities.ICE_ARROW.get(), shooter, level, pickupItemStack, firedFromWeapon);
+    public FrostArrowEntity(Level level, LivingEntity shooter, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+        super(ModEntities.FROST_ARROW.get(), shooter, level, pickupItemStack, firedFromWeapon);
     }
 
     // Welches Item bekommt man beim Aufheben (wenn nichts anderes gespeichert ist)?
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return new ItemStack(ModItems.ICE_ARROW.get());
+        return new ItemStack(ModItems.FROST_ARROW.get());
     }
 
     // Zusatz-Effekt, wenn der Pfeil ein Lebewesen trifft
@@ -286,7 +286,7 @@ public class IceArrowEntity extends AbstractArrow {
 }
 ```
 
-Test auf dem Server: Ein gespawnter Eis-Pfeil trägt als Aufhebe-Item `{count: 1, id: "rubymod:ice_arrow"}` – genau das aus `getDefaultPickupItem()`. Ein getroffenes Schwein hatte danach `minecraft:slowness` mit Stufe II.
+Test auf dem Server: Ein gespawnter Frost-Pfeil trägt als Aufhebe-Item `{count: 1, id: "mymod:frost_arrow"}` – genau das aus `getDefaultPickupItem()`. Ein getroffenes Schwein hatte danach `minecraft:slowness` mit Stufe II.
 
 **Was hier passiert:**
 
@@ -296,17 +296,17 @@ Test auf dem Server: Ein gespawnter Eis-Pfeil trägt als Aufhebe-Item `{count: 1
 | `getDefaultPickupItem()` | ist in `AbstractArrow` **`abstract`** – jede Pfeil-Klasse **muss** sie liefern. Vergisst man sie (getestet): *„… ist nicht abstrakt und setzt die abstrakte Methode getDefaultPickupItem() in AbstractArrow nicht außer Kraft“* |
 | `protected` | so steht sie in `AbstractArrow` – gleich lassen oder `public` (nicht `private`, siehe [25](25-Override.md#zugriff-offener-ist-erlaubt)) |
 | `return new ItemStack(...)` | jedes Mal ein **neuer** Stack – nie einen gespeicherten zurückgeben, denn der Aufrufer darf ihn verändern |
-| `ModItems.ICE_ARROW.get()` | eigenes Item → `RegistryObject` → **`.get()` mit Klammern** |
+| `ModItems.FROST_ARROW.get()` | eigenes Item → `RegistryObject` → **`.get()` mit Klammern** |
 
 Vanilla macht es genauso: `Arrow` gibt `new ItemStack(Items.ARROW)` zurück, `SpectralArrow` `new ItemStack(Items.SPECTRAL_ARROW)`.
 
-> ⚠️ **Häufiger Tippfehler:** `ModItems.ICEARROW.get` (ohne Klammern). Ohne `()` sucht Java kein *Methoden-Aufruf*, sondern ein **Feld** namens `get` – und das gibt es nicht. Echte Meldung (getestet):
+> ⚠️ **Häufiger Tippfehler:** `ModItems.FROST_ARROW.get` (ohne Klammern). Ohne `()` sucht Java kein *Methoden-Aufruf*, sondern ein **Feld** namens `get` – und das gibt es nicht. Echte Meldung (getestet):
 > ```
 > Fehler: Symbol nicht gefunden
 >   Symbol: Variable get
->   Ort: Variable ICE_ARROW von Typ RegistryObject<Item>
+>   Ort: Variable FROST_ARROW von Typ RegistryObject<Item>
 > ```
-> („Variable get“ ist der Hinweis: Java hat `get` für eine Variable gehalten.) Richtig: **`ModItems.ICEARROW.get()`**.
+> („Variable get“ ist der Hinweis: Java hat `get` für eine Variable gehalten.) Richtig: **`ModItems.FROST_ARROW.get()`**.
 
 > ⚠️ **Falle beim Erzeugen:** `AbstractArrow` ruft `getDefaultPickupItem()` schon **in seinem eigenen Konstruktor** auf (`private ItemStack pickupItemStack = this.getDefaultPickupItem();`). In diesem Moment sind die **Felder deiner Klasse noch nicht gesetzt**. Benutze in `getDefaultPickupItem()` deshalb nur Dinge, die immer da sind (z. B. `ModItems...get()`), keine eigenen Felder des Pfeils – die wären noch `null` bzw. `0`.
 
@@ -316,14 +316,14 @@ Das Item ist ein `ArrowItem`, das sagt, **welches Entity** beim Schießen entste
 
 ```java
 // Das Item: sagt Bögen, welches Entity beim Schießen erzeugt wird
-public class IceArrowItem extends ArrowItem {
-    public IceArrowItem(Properties properties) {
+public class FrostArrowItem extends ArrowItem {
+    public FrostArrowItem(Properties properties) {
         super(properties);
     }
 
     @Override
     public AbstractArrow createArrow(Level level, ItemStack itemStack, LivingEntity owner, @Nullable ItemStack firedFromWeapon) {
-        return new IceArrowEntity(level, owner, itemStack.copyWithCount(1), firedFromWeapon);
+        return new FrostArrowEntity(level, owner, itemStack.copyWithCount(1), firedFromWeapon);
     }
 }
 ```
@@ -332,16 +332,16 @@ Registrieren:
 
 ```java
 // ModItems
-public static final RegistryObject<Item> ICE_ARROW = ITEMS.register("ice_arrow",
-        () -> new IceArrowItem(new Item.Properties().setId(ITEMS.key("ice_arrow"))));
+public static final RegistryObject<Item> FROST_ARROW = ITEMS.register("frost_arrow",
+        () -> new FrostArrowItem(new Item.Properties().setId(ITEMS.key("frost_arrow"))));
 
 // ModEntities
-public static final RegistryObject<EntityType<IceArrowEntity>> ICE_ARROW = ENTITY_TYPES.register("ice_arrow",
-        () -> EntityType.Builder.<IceArrowEntity>of(IceArrowEntity::new, MobCategory.MISC)
+public static final RegistryObject<EntityType<FrostArrowEntity>> FROST_ARROW = ENTITY_TYPES.register("frost_arrow",
+        () -> EntityType.Builder.<FrostArrowEntity>of(FrostArrowEntity::new, MobCategory.MISC)
                 .sized(0.5F, 0.5F)
                 .clientTrackingRange(4)
                 .updateInterval(20)
-                .build(ENTITY_TYPES.key("ice_arrow")));
+                .build(ENTITY_TYPES.key("frost_arrow")));
 ```
 
 - Hier kommt der **ItemStack in die andere Richtung**: `createArrow` bekommt den Stack aus dem Inventar (`itemStack`) und gibt eine **Kopie mit Anzahl 1** an den Pfeil weiter – das ist dann das Aufhebe-Item dieses einen Pfeils. Deshalb `copyWithCount(1)`: Der Original-Stack (z. B. 64 Pfeile im Inventar) darf nicht mitwandern ([Abschnitt 5](#5-anzahl-ändern-teilen-kopieren)).
@@ -349,7 +349,7 @@ public static final RegistryObject<EntityType<IceArrowEntity>> ICE_ARROW = ENTIT
 - Damit Bögen den Pfeil als **Munition** erkennen, gehört das Item in den Vanilla-Tag `data/minecraft/tags/item/arrows.json` (`"replace": false`). Dort stehen `minecraft:arrow`, `minecraft:tipped_arrow`, `minecraft:spectral_arrow`.
 - Aussehen im Flug: einen Renderer anmelden ([06](06-Eigener-Mob-mit-GeckoLib.md#renderer-anmelden)). Vorbilder in Vanilla: `TippableArrowRenderer` und `SpectralArrowRenderer` (beide erweitern `ArrowRenderer`).
 
-> Getestet: `IceArrowEntity` und `IceArrowItem` kompilieren gegen Forge 26.3; Aufhebe-Item und Treffer-Effekt auf dem Server geprüft. Das Schießen mit einem Bogen braucht einen Spieler und ist nur kompiliert.
+> Getestet: `FrostArrowEntity` und `FrostArrowItem` kompilieren gegen Forge 26.3; Aufhebe-Item und Treffer-Effekt auf dem Server geprüft. Das Schießen mit einem Bogen braucht einen Spieler und ist nur kompiliert.
 
 ### Weitere Methoden, die einen ItemStack zurückgeben
 
@@ -367,8 +367,8 @@ Alle folgen demselben Muster: **`@Override`, `return new ItemStack(...)`** – e
 
 | Problem | Ursache | Lösung |
 |---|---|---|
-| `new ItemStack(ModItems.RUBY)` rot | `RegistryObject` statt Item | `ModItems.RUBY.get()` |
-| `ModItems.RUBY.get` rot: *Symbol nicht gefunden – Variable get* | Klammern vergessen | `ModItems.RUBY.get()` |
+| `new ItemStack(ModItems.SAPPHIRE)` rot | `RegistryObject` statt Item | `ModItems.SAPPHIRE.get()` |
+| `ModItems.SAPPHIRE.get` rot: *Symbol nicht gefunden – Variable get* | Klammern vergessen | `ModItems.SAPPHIRE.get()` |
 | Vergleich klappt nie | `==` oder `equals` | `is(...)`, `ItemStack.matches`, `isSameItem…` |
 | `NullPointerException` | leerer Slot mit `null` erwartet | `isEmpty()` prüfen; Minecraft liefert `ItemStack.EMPTY` |
 | Item in der Hand ändert sich mit | Stack nicht kopiert | `copy()` |

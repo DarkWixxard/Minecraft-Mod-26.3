@@ -67,6 +67,7 @@ Alle Beispiele benutzen eine erfundene Mod. Ersetze die Namen durch deine eigene
 | `crystal_armor` / `CrystalArmorItem` | Beispiel für 3D-Rüstung | – |
 | `triple_bow` / `TripleShotBowItem` | Beispiel für eine eigene Item-Klasse | – |
 | `wyvern` / `WyvernEntity` | Beispiel-Mob (fliegender Boss) | – |
+| `frost_arrow` / `FrostArrowItem`, `FrostArrowEntity` | Beispiel für einen eigenen Pfeil (Item + fliegendes Geschoss) | – |
 
 **Regeln für IDs:** Mod-ID und alle Registry-Namen (`sapphire_ore`) nur **klein**, keine Leerzeichen, keine Umlaute. Dasselbe gilt für alle Dateinamen in `resources`.
 

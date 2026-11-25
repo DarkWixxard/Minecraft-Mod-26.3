@@ -11,9 +11,9 @@ Jeder [EventBus (27)](27-EventBus.md) gehört zu genau **einer** Gruppe. In eine
 | Gruppe | Name (im Test ausgegeben) | Enthält die Busse von … | Wie man sie bekommt |
 |---|---|---|---|
 | **Default-Gruppe** | `default` | allen Spiel- und Client-Events (`PlayerLoggedInEvent`, `BlockEvent.BreakEvent`, `TickEvent` …) – gemeinsam für **alle** Mods | `BusGroup.DEFAULT` |
-| **Mod-Gruppe** deiner Mod | `modBusForrubymod` | den Mod-Lebenszyklus-Events (`FMLCommonSetupEvent`, `FMLClientSetupEvent`, …) – **eine eigene pro Mod** | `context.getModBusGroup()` |
+| **Mod-Gruppe** deiner Mod | `modBusFormymod` | den Mod-Lebenszyklus-Events (`FMLCommonSetupEvent`, `FMLClientSetupEvent`, …) – **eine eigene pro Mod** | `context.getModBusGroup()` |
 
-**Warum eine eigene Gruppe pro Mod?** Mod-Events betreffen jede Mod einzeln: „Mod *rubymod* ist jetzt eingerichtet.“ Jede Mod hat deshalb ihre eigenen Busse für diese Events – sonst würde deine Mod die Setup-Events aller anderen Mods mitbekommen.
+**Warum eine eigene Gruppe pro Mod?** Mod-Events betreffen jede Mod einzeln: „Mod *mymod* ist jetzt eingerichtet.“ Jede Mod hat deshalb ihre eigenen Busse für diese Events – sonst würde deine Mod die Setup-Events aller anderen Mods mitbekommen.
 
 ## 2. Die Methoden
 

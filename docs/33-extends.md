@@ -7,12 +7,12 @@
 ## 1. Was `extends` bedeutet
 
 ```java
-public class IceArrowEntity extends AbstractArrow { … }
+public class FrostArrowEntity extends AbstractArrow { … }
 ```
 
-heißt: **„Ein `IceArrowEntity` ist ein `AbstractArrow` – mit ein paar Änderungen.“**
+heißt: **„Ein `FrostArrowEntity` ist ein `AbstractArrow` – mit ein paar Änderungen.“**
 
-- `IceArrowEntity` ist die **Unterklasse** (Kind, *subclass*).
+- `FrostArrowEntity` ist die **Unterklasse** (Kind, *subclass*).
 - `AbstractArrow` ist die **Elternklasse** (Oberklasse, *superclass*).
 - Die Unterklasse **erbt alles** von der Elternklasse: alle Methoden und Felder, die nicht `private` sind. Ein Pfeil, der `AbstractArrow` erweitert, kann also schon fliegen, stecken bleiben, Schaden machen und aufgehoben werden – ohne eine einzige Zeile eigenen Code.
 - Dann **ändert** (überschreibt, [25](25-Override.md)) oder **ergänzt** man nur das, was anders sein soll.
@@ -25,11 +25,11 @@ Das ist der Kern des Moddings: **Man baut nicht alles neu, sondern erweitert, wa
 
 | Klasse | „ist ein …“ | stimmt? |
 |---|---|---|
-| `IceArrowEntity extends AbstractArrow` | Ein Eis-Pfeil ist ein Pfeil | ✅ |
+| `FrostArrowEntity extends AbstractArrow` | Ein Frost-Pfeil ist ein Pfeil | ✅ |
 | `VenomSwordItem extends Item` | Ein Giftschwert ist ein Item | ✅ |
 | `SpeedPadBlock extends Block` | Eine Tempo-Platte ist ein Block | ✅ |
 | `WyvernEntity extends Monster` | Ein Wyvern ist ein Monster | ✅ |
-| `IceArrowItem extends ArrowItem` mit Code für einen **fliegenden** Pfeil | Das Inventar-Item ist ein fliegender Pfeil? | ❌ – das sind zwei Dinge, zwei Klassen ([31](31-ItemStack.md#9-itemstack-als-rückgabewert-überschriebene-methoden)) |
+| `FrostArrowItem extends ArrowItem` mit Code für einen **fliegenden** Pfeil | Das Inventar-Item ist ein fliegender Pfeil? | ❌ – das sind zwei Dinge, zwei Klassen ([31](31-ItemStack.md#9-itemstack-als-rückgabewert-überschriebene-methoden)) |
 
 ## 2. Die Vererbungskette
 
@@ -47,7 +47,7 @@ DropExperienceBlock → Block → BlockBehaviour
 
 (Ganz oben stehen bei Entities noch Forge-Klassen für „Capabilities“ – die kann man für den Anfang ignorieren.)
 
-Was erbt welche Ebene? Am Beispiel deines Wyverns (`extends Monster`):
+Was erbt welche Ebene? Am Beispiel des Beispiel-Mobs `WyvernEntity` (`extends Monster`):
 
 | Ebene | bringt mit |
 |---|---|
@@ -87,8 +87,8 @@ Die Parameter von `super(...)` müssen zu **einem Konstruktor der Elternklasse p
 **Falsche Parameter für `super`** – z. B. Entity-Parameter in einer Item-Klasse:
 
 ```java
-public class IceArrowItem extends ArrowItem {
-    public IceArrowItem(EntityType<? extends Arrow> type, Level level) { super(type, level); }
+public class FrostArrowItem extends ArrowItem {
+    public FrostArrowItem(EntityType<? extends Arrow> type, Level level) { super(type, level); }
 }
 ```
 
@@ -103,7 +103,7 @@ Fehler: Konstruktor ArrowItem in Klasse ArrowItem kann nicht auf die angegebenen
 **Gar kein Konstruktor:**
 
 ```java
-public class IceArrowItem extends ArrowItem { }
+public class FrostArrowItem extends ArrowItem { }
 ```
 
 ```
@@ -136,7 +136,7 @@ Deshalb funktioniert Code, den man aus einer Vanilla-Klasse **kopiert**, oft nic
 **Methoden einer anderen Sorte gibt es nicht:** Eine Item-Klasse kennt keine Entity-Methoden.
 
 ```java
-public class IceArrowItem extends ArrowItem {
+public class FrostArrowItem extends ArrowItem {
     void test() { this.level(); }   // level() gibt es bei Entities, nicht bei Items
 }
 ```
